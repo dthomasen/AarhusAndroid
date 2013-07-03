@@ -7,7 +7,27 @@
 <TextView
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:text="Hello World, MainActivity"
+    android:text="Velkommen til Aarhus app'en."
+    android:gravity="center"
+    android:textSize="25dp"
     />
+
+<TextView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
+    android:gravity="center"
+    android:textSize="20dp"
+    android:text="Slide til højre for muligheder"
+    />
+
+<TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:text="RSS fra Aarhus.dk placeholder"
+        />
 </LinearLayout>
 
