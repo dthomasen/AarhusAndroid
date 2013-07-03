@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
-import dk.dthomasen.aarhus.FitnessIDetFri;
+import dk.dthomasen.aarhus.activity.FitnessIDetFri;
 import dk.dthomasen.aarhus.R;
 
 import java.util.ArrayList;
@@ -51,6 +51,10 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
     private List<Section> createMenu() {
         List<Section> sectionList = new ArrayList<Section>();
 
+        Section programSection = new Section("Program");
+        programSection.addSectionItem(001, "Forside", Integer.toString(R.drawable.ic_launcher));
+        programSection.addSectionItem(002, "Indstillinger", Integer.toString(R.drawable.ic_launcher));
+
         Section fritidSection = new Section("Fritid");
         fritidSection.addSectionItem(101,"Fitness i det fri",Integer.toString(R.drawable.ic_launcher));
         fritidSection.addSectionItem(102, "Hundeskove", Integer.toString(R.drawable.ic_launcher));
@@ -65,6 +69,7 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
         transportSection.addSectionItem(203, "MC parkering", Integer.toString(R.drawable.ic_launcher));
         transportSection.addSectionItem(204, "Turistbus parkering", Integer.toString(R.drawable.ic_launcher));
 
+        sectionList.add(programSection);
         sectionList.add(fritidSection);
         sectionList.add(transportSection);
         return sectionList;
@@ -75,6 +80,10 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
                                 int groupPosition, int childPosition, long id) {
 
         switch ((int)id) {
+            case 001:
+                break;
+            case 002:
+                break;
             case 101:
                 Intent myIntent = new Intent(this.getActivity(), FitnessIDetFri.class);
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME);

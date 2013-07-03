@@ -1,10 +1,12 @@
-package dk.dthomasen.aarhus;
+package dk.dthomasen.aarhus.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+
+import dk.dthomasen.aarhus.R;
 
 public class MainActivity extends Activity
 {
