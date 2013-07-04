@@ -28,6 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.FitnessIDetFri"></activity>
+        <activity android:name=".activity.Hundeskove"></activity>
 
 
         <meta-data

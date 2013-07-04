@@ -10,6 +10,8 @@ import android.widget.ExpandableListView;
 
 import dk.dthomasen.aarhus.activity.FitnessIDetFri;
 import dk.dthomasen.aarhus.R;
+import dk.dthomasen.aarhus.activity.Hundeskove;
+import dk.dthomasen.aarhus.activity.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,46 +53,38 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
     private List<Section> createMenu() {
         List<Section> sectionList = new ArrayList<Section>();
 
-        Section programSection = new Section("Program");
-        programSection.addSectionItem(001, "Forside", Integer.toString(R.drawable.ic_launcher));
-        programSection.addSectionItem(002, "Indstillinger", Integer.toString(R.drawable.ic_launcher));
+        Section programSection = new Section("Diverse");
+        programSection.addSectionItem(001, "Hvad sker i Aarhus", Integer.toString(R.drawable.news));
+        programSection.addSectionItem(002, "Indstillinger", Integer.toString(R.drawable.settings));
 
-        Section fritidSection = new Section("Fritid");
-        fritidSection.addSectionItem(101,"Fitness i det fri",Integer.toString(R.drawable.ic_launcher));
-        fritidSection.addSectionItem(102, "Hundeskove", Integer.toString(R.drawable.ic_launcher));
-        fritidSection.addSectionItem(103, "Legepladser", Integer.toString(R.drawable.ic_launcher));
-        fritidSection.addSectionItem(104, "Shelters/Madpakkehuse", Integer.toString(R.drawable.ic_launcher));
-        fritidSection.addSectionItem(105, "Skove/Parker", Integer.toString(R.drawable.ic_launcher));
-        fritidSection.addSectionItem(106, "Bålpladser", Integer.toString(R.drawable.ic_launcher));
-
-        Section transportSection = new Section("Parkering");
-        transportSection.addSectionItem(201, "Invalide parkering", Integer.toString(R.drawable.ic_launcher));
-        transportSection.addSectionItem(202, "Lastbil parkering", Integer.toString(R.drawable.ic_launcher));
-        transportSection.addSectionItem(203, "MC parkering", Integer.toString(R.drawable.ic_launcher));
-        transportSection.addSectionItem(204, "Turistbus parkering", Integer.toString(R.drawable.ic_launcher));
+        Section findSection = new Section("Find");
+        findSection.addSectionItem(101, "Fitness i det fri", Integer.toString(R.drawable.fitness));
+        findSection.addSectionItem(102, "Hundeskove", Integer.toString(R.drawable.dog));
+        findSection.addSectionItem(103, "Legepladser", Integer.toString(R.drawable.playground));
+        findSection.addSectionItem(104, "Shelters/Madpakkehuse", Integer.toString(R.drawable.shelter));
+        findSection.addSectionItem(105, "Skove/Parker", Integer.toString(R.drawable.forrest));
+        findSection.addSectionItem(106, "Bålpladser", Integer.toString(R.drawable.fire));
 
         sectionList.add(programSection);
-        sectionList.add(fritidSection);
-        sectionList.add(transportSection);
+        sectionList.add(findSection);
         return sectionList;
     }
 
     @Override
     public boolean onChildClick(ExpandableListView parent, View v,
                                 int groupPosition, int childPosition, long id) {
-
+        Intent activityIntent = new Intent();
         switch ((int)id) {
             case 001:
+                activityIntent = new Intent(this.getActivity(), MainActivity.class);
                 break;
             case 002:
                 break;
             case 101:
-                Intent myIntent = new Intent(this.getActivity(), FitnessIDetFri.class);
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME);
-                startActivity(myIntent);
+                activityIntent = new Intent(this.getActivity(), FitnessIDetFri.class);
                 break;
             case 102:
-                //TODO
+                activityIntent = new Intent(this.getActivity(), Hundeskove.class);
                 break;
             case 103:
                 //TODO
@@ -117,7 +111,8 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
                 //TODO
                 break;
         }
-
+        activityIntent.addFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+        startActivity(activityIntent);
         return false;
     }
 }
