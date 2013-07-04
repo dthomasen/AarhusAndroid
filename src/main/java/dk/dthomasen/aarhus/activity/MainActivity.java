@@ -1,5 +1,6 @@
 package dk.dthomasen.aarhus.activity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -27,7 +28,12 @@ public class MainActivity extends Activity
         slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         slidingMenu.setMenu(R.layout.slidingmenu);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar ab = getActionBar();
+
+        ab.setDisplayHomeAsUpEnabled(true);
+
+        ab.setTitle("Aarhus app'en");
+        ab.setSubtitle("App'en om friluftsliv i Aarhus");
     }
 
     @Override

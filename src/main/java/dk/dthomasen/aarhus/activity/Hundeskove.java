@@ -1,5 +1,6 @@
 package dk.dthomasen.aarhus.activity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
@@ -62,7 +63,12 @@ public class Hundeskove extends Activity implements LocationListener, LocationSo
         slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         slidingMenu.setMenu(R.layout.slidingmenu);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar ab = getActionBar();
+
+        ab.setDisplayHomeAsUpEnabled(true);
+
+        ab.setTitle("Hundeskove");
+        ab.setSubtitle("Alle hundeskove i Aarhus");
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if(locationManager != null)

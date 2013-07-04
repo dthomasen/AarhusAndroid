@@ -11,7 +11,9 @@ import android.widget.ExpandableListView;
 import dk.dthomasen.aarhus.activity.FitnessIDetFri;
 import dk.dthomasen.aarhus.R;
 import dk.dthomasen.aarhus.activity.Hundeskove;
+import dk.dthomasen.aarhus.activity.Legepladser;
 import dk.dthomasen.aarhus.activity.MainActivity;
+import dk.dthomasen.aarhus.activity.Shelters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,16 +59,20 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
         programSection.addSectionItem(001, "Hvad sker i Aarhus", Integer.toString(R.drawable.news));
         programSection.addSectionItem(002, "Indstillinger", Integer.toString(R.drawable.settings));
 
-        Section findSection = new Section("Find");
-        findSection.addSectionItem(101, "Fitness i det fri", Integer.toString(R.drawable.fitness));
-        findSection.addSectionItem(102, "Hundeskove", Integer.toString(R.drawable.dog));
-        findSection.addSectionItem(103, "Legepladser", Integer.toString(R.drawable.playground));
-        findSection.addSectionItem(104, "Shelters/Madpakkehuse", Integer.toString(R.drawable.shelter));
-        findSection.addSectionItem(105, "Skove/Parker", Integer.toString(R.drawable.forrest));
-        findSection.addSectionItem(106, "Bålpladser", Integer.toString(R.drawable.fire));
+        Section aktiviteterSection = new Section("Aktiviteter");
+        aktiviteterSection.addSectionItem(101, "Fitness i det fri", Integer.toString(R.drawable.fitness));
+        aktiviteterSection.addSectionItem(102, "Legepladser", Integer.toString(R.drawable.playground));
+        aktiviteterSection.addSectionItem(103, "Kiosker", Integer.toString(R.drawable.kiosk));
+        Section skoveSection = new Section("Skove & Parker");
+        skoveSection.addSectionItem(201, "Skove", Integer.toString(R.drawable.forrest));
+        skoveSection.addSectionItem(202, "Parker", Integer.toString(R.drawable.sun));
+        skoveSection.addSectionItem(203, "Bålpladser", Integer.toString(R.drawable.fire));
+        skoveSection.addSectionItem(204, "Shelters/Madpakkehuse", Integer.toString(R.drawable.shelter));
+        skoveSection.addSectionItem(205, "Hundeskove", Integer.toString(R.drawable.dog));
 
         sectionList.add(programSection);
-        sectionList.add(findSection);
+        sectionList.add(aktiviteterSection);
+        sectionList.add(skoveSection);
         return sectionList;
     }
 
@@ -79,36 +85,31 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
                 activityIntent = new Intent(this.getActivity(), MainActivity.class);
                 break;
             case 002:
+                //Indstillinger
                 break;
             case 101:
                 activityIntent = new Intent(this.getActivity(), FitnessIDetFri.class);
                 break;
             case 102:
-                activityIntent = new Intent(this.getActivity(), Hundeskove.class);
+                activityIntent = new Intent(this.getActivity(), Legepladser.class);
                 break;
             case 103:
-                //TODO
-                break;
-            case 104:
-                //TODO
-                break;
-            case 105:
-                //TODO
-                break;
-            case 106:
-                //TODO
+                //Kiosker
                 break;
             case 201:
-                //TODO
+                //Skove
                 break;
             case 202:
-                //TODO
+                //Parker
                 break;
             case 203:
-                //TODO
+                //Bålpladser
                 break;
             case 204:
-                //TODO
+                activityIntent = new Intent(this.getActivity(), Shelters.class);
+                break;
+            case 205:
+                activityIntent = new Intent(this.getActivity(), Hundeskove.class);
                 break;
         }
         activityIntent.addFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME);

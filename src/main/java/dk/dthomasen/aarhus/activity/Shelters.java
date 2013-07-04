@@ -8,7 +8,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -18,7 +17,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -27,30 +25,39 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import dk.dthomasen.aarhus.R;
 
-public class FitnessIDetFri extends Activity implements LocationListener, LocationSource, GoogleMap.OnInfoWindowClickListener {
-
+/**
+ * Created by Dennis on 04-07-13.
+ */
+public class Shelters extends Activity implements LocationListener, LocationSource, GoogleMap.OnInfoWindowClickListener{
     protected final String TAG = this.getClass().getName();
     private SlidingMenu slidingMenu;
     private GoogleMap map;
-    private OnLocationChangedListener mListener;
+    private LocationSource.OnLocationChangedListener mListener;
     private LocationManager locationManager;
 
-    /**LOCATIONS**/
-    LatLng riisSkov = new LatLng(56.170016, 10.221158);
-    LatLng tangKrogen = new LatLng(56.13883, 10.210955);
-    LatLng mindeParken = new LatLng(56.129052, 10.203855);
-    LatLng skjoldhoejkilen = new LatLng(56.167978, 10.131504);
-    LatLng frederiksbjergBypark = new LatLng(56.147309, 10.190007);
-    LatLng gaasehaven = new LatLng(56.111279, 10.227528);
-    LatLng harlevBypark = new LatLng(56.14564, 9.990274);
-    LatLng brabrandstien = new LatLng(56.148723, 10.117077);
-    LatLng egelund = new LatLng(56.04813, 10.197042);
-    LatLng lyseng = new LatLng(56.112574, 10.193219);
+    /*** Locations ***/
+    LatLng gjellerup = new LatLng(56.150408, 10.142253);
+    LatLng hoerhavenSkoven = new LatLng(56.11467, 10.22718);
+    LatLng lisbjerg = new LatLng(56.235431, 10.16946);
+    LatLng moesgaardStrand = new LatLng(56.088373, 10.244415);
+    LatLng mollerup = new LatLng(56.206293, 10.202737);
+    LatLng hoerhavenBakken = new LatLng(56.11288, 10.229495);
+    LatLng vestereng = new LatLng(56.186809, 10.183249);
+    LatLng moesgaardSkov = new LatLng(56.097863, 10.232839);
+    LatLng hoerhaven = new LatLng(56.113568, 10.230217);
+    LatLng vilhelmsborg = new LatLng(56.066575, 10.197506);
+    LatLng brendstrup = new LatLng(56.184156, 10.161816);
+    LatLng skjoldhoejkilenAlfa = new LatLng(56.169204, 10.133973);
+    LatLng skjoldhoejkilenGamma = new LatLng(56.169994, 10.124992);
+    LatLng skjoldhoejkilenDelta = new LatLng(56.171274, 10.111871);
+    LatLng skjoldhoejkilenEpsilon = new LatLng(56.171661, 10.104946);
+    LatLng egaa = new LatLng(56.213604, 10.220277);
+    LatLng lisbjergNySkov = new LatLng(56.226818, 10.171774);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fitnessidetfri);
+        setContentView(R.layout.shelters);
         slidingMenu = new SlidingMenu(this);
         slidingMenu.setMode(SlidingMenu.LEFT);
         slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
@@ -63,8 +70,8 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
 
         ab.setDisplayHomeAsUpEnabled(true);
 
-        ab.setTitle("Fitnesspladser");
-        ab.setSubtitle("Alle udendørs fitnesspladser i Aarhus");
+        ab.setTitle("Shelters/Madpakkehuse");
+        ab.setSubtitle("Alle shelters/madpakkehuse i Aarhus");
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if(locationManager != null)
@@ -177,7 +184,7 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
     }
 
     @Override
-    public void activate(OnLocationChangedListener onLocationChangedListener) {
+    public void activate(LocationSource.OnLocationChangedListener onLocationChangedListener) {
         mListener = onLocationChangedListener;
     }
 
@@ -214,37 +221,57 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
     }
 
     private void addTrainingMarkers(){
-        map.addMarker(new MarkerOptions().position(riisSkov)
-                .title("Riis Skov")
+        map.addMarker(new MarkerOptions().position(gjellerup)
+                .title("Shelter i Gjellerup Skov")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(tangKrogen)
-                .title("Tangkrogen")
+        map.addMarker(new MarkerOptions().position(hoerhavenSkoven)
+                .title("Shelter i Hørhaven i skoven")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(mindeParken)
-                .title("Mindeparken")
+        map.addMarker(new MarkerOptions().position(lisbjerg)
+                .title("Shelter i Lisbjerg gammel skov")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(skjoldhoejkilen)
-                .title("Skjoldhøjkilen")
+        map.addMarker(new MarkerOptions().position(moesgaardStrand)
+                .title("Shelter ved Moesgård Strand")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(frederiksbjergBypark)
-                .title("Frederiksbjerg Bypark")
+        map.addMarker(new MarkerOptions().position(mollerup)
+                .title("Shelter i Mollerup Skov")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(gaasehaven)
-                .title("Fitnessplads Gåsehaven")
+        map.addMarker(new MarkerOptions().position(hoerhavenBakken)
+                .title("Shelter i Hørhaven på bakken")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(harlevBypark)
-                .title("Harlev Bypark")
+        map.addMarker(new MarkerOptions().position(vestereng)
+                .title("Shelter på Vestereng")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(brabrandstien)
-                .title("Brabrandstien")
+        map.addMarker(new MarkerOptions().position(moesgaardSkov)
+                .title("Shelter i Moesgård Skov")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(egelund)
-                .title("Egelund Idrætsanlæg")
+        map.addMarker(new MarkerOptions().position(hoerhaven)
+                .title("Dagshelter i Hørhaven")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(lyseng)
-                .title("Lyseng Idrætsanlæg")
+        map.addMarker(new MarkerOptions().position(vilhelmsborg)
+                .title("Shelter i Vilhelmsborg Skov")
                 .snippet("Tryk for rutevejledning"));
-
+        map.addMarker(new MarkerOptions().position(brendstrup)
+                .title("Shelter i Brendstrup Skov")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(skjoldhoejkilenAlfa)
+                .title("Madpakkehus Alfa i Skjoldhøjkilen")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(skjoldhoejkilenGamma)
+                .title("Madpakkehus Gamma i Skjoldhøjkilen")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(skjoldhoejkilenDelta)
+                .title("Madpakkehus Delta i Skjoldhøjkilen")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(skjoldhoejkilenEpsilon)
+                .title("Madpakkehus Epsilon i Skjoldhøjkilen")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(egaa)
+                .title("Shelterplads ved Egå Engsø - fem stk.")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(lisbjergNySkov)
+                .title("Shelterplads i Lisbjerg ny skov - fem stk.")
+                .snippet("Tryk for rutevejledning"));
     }
 
     @Override
@@ -255,51 +282,97 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
         Double longitude = 0.0;
         Double latitude = 0.0;
 
+
+        LatLng gjellerup = new LatLng(56.150408, 10.142253);
+        LatLng hoerhavenSkoven = new LatLng(56.11467, 10.22718);
+        LatLng lisbjerg = new LatLng(56.235431, 10.16946);
+        LatLng moesgaardStrand = new LatLng(56.088373, 10.244415);
+        LatLng mollerup = new LatLng(56.206293, 10.202737);
+        LatLng hoerhavenBakken = new LatLng(56.11288, 10.229495);
+        LatLng vestereng = new LatLng(56.186809, 10.183249);
+        LatLng moesgaardSkov = new LatLng(56.097863, 10.232839);
+        LatLng hoerhaven = new LatLng(56.113568, 10.230217);
+        LatLng vilhelmsborg = new LatLng(56.066575, 10.197506);
+        LatLng brendstrup = new LatLng(56.184156, 10.161816);
+        LatLng skjoldhoejkilenAlfa = new LatLng(56.169204, 10.133973);
+        LatLng skjoldhoejkilenGamma = new LatLng(56.169994, 10.124992);
+        LatLng skjoldhoejkilenDelta = new LatLng(56.171274, 10.111871);
+        LatLng skjoldhoejkilenEpsilon = new LatLng(56.171661, 10.104946);
+        LatLng egaa = new LatLng(56.213604, 10.220277);
+        LatLng lisbjergNySkov = new LatLng(56.226818, 10.171774);
+
         switch (Integer.valueOf(marker.getId().replace("m",""))){
             case 0:
-                longitude = riisSkov.longitude;
-                latitude = riisSkov.latitude;
+                longitude = gjellerup.longitude;
+                latitude = gjellerup.latitude;
                 break;
             case 1:
-                longitude = tangKrogen.longitude;
-                latitude = tangKrogen.latitude;
+                longitude = hoerhavenSkoven.longitude;
+                latitude = hoerhavenSkoven.latitude;
                 break;
             case 2:
-                longitude = mindeParken.longitude;
-                latitude = mindeParken.latitude;
+                longitude = lisbjerg.longitude;
+                latitude = lisbjerg.latitude;
                 break;
             case 3:
-                longitude = skjoldhoejkilen.longitude;
-                latitude = skjoldhoejkilen.latitude;
+                longitude = moesgaardStrand.longitude;
+                latitude = moesgaardStrand.latitude;
                 break;
             case 4:
-                longitude = frederiksbjergBypark.longitude;
-                latitude = frederiksbjergBypark.latitude;
+                longitude = mollerup.longitude;
+                latitude = mollerup.latitude;
                 break;
             case 5:
-                longitude = gaasehaven.longitude;
-                latitude = gaasehaven.latitude;
+                longitude = hoerhavenBakken.longitude;
+                latitude = hoerhavenBakken.latitude;
                 break;
             case 6:
-                longitude = harlevBypark.longitude;
-                latitude = harlevBypark.latitude;
+                longitude = vestereng.longitude;
+                latitude = vestereng.latitude;
                 break;
             case 7:
-                longitude = brabrandstien.longitude;
-                latitude = brabrandstien.latitude;
+                longitude = moesgaardSkov.longitude;
+                latitude = moesgaardSkov.latitude;
                 break;
             case 8:
-                longitude = egelund.longitude;
-                latitude = egelund.latitude;
+                longitude = hoerhaven.longitude;
+                latitude = hoerhaven.latitude;
                 break;
             case 9:
-                longitude = lyseng.longitude;
-                latitude = lyseng.latitude;
+                longitude = vilhelmsborg.longitude;
+                latitude = vilhelmsborg.latitude;
+                break;
+            case 10:
+                longitude = brendstrup.longitude;
+                latitude = brendstrup.latitude;
+                break;
+            case 11:
+                longitude = skjoldhoejkilenAlfa.longitude;
+                latitude = skjoldhoejkilenAlfa.latitude;
+                break;
+            case 12:
+                longitude = skjoldhoejkilenGamma.longitude;
+                latitude = skjoldhoejkilenGamma.latitude;
+                break;
+            case 13:
+                longitude = skjoldhoejkilenDelta.longitude;
+                latitude = skjoldhoejkilenDelta.latitude;
+                break;
+            case 14:
+                longitude = skjoldhoejkilenEpsilon.longitude;
+                latitude = skjoldhoejkilenEpsilon.latitude;
+                break;
+            case 15:
+                longitude = egaa.longitude;
+                latitude = egaa.latitude;
+                break;
+            case 16:
+                longitude = lisbjergNySkov.longitude;
+                latitude = lisbjergNySkov.latitude;
                 break;
         }
         intent = new Intent(android.content.Intent.ACTION_VIEW,
-                Uri.parse("http://maps.google.com/maps?saddr="+userlocation.getLatitude()+","+userlocation.getLongitude()+"&daddr="+latitude+","+longitude+"&dirflg=w"));
+                Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
         startActivity(intent);
     }
 }
-
