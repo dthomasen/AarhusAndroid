@@ -27,8 +27,7 @@ import dk.dthomasen.aarhus.R;
 /**
  * Created by Dennis on 04-07-13.
  */
-public class Kiosker extends Activity implements LocationListener, LocationSource, GoogleMap.OnInfoWindowClickListener{
-
+public class Baalpladser extends Activity implements LocationListener, LocationSource, GoogleMap.OnInfoWindowClickListener{
     protected final String TAG = this.getClass().getName();
     private SlidingMenu slidingMenu;
     private GoogleMap map;
@@ -36,24 +35,29 @@ public class Kiosker extends Activity implements LocationListener, LocationSourc
     private LocationManager locationManager;
 
     /*** Locations ***/
-    LatLng havreballeSkovbrynet = new LatLng(56.13872, 10.205476);
-    LatLng tangkrogen = new LatLng(56.139317, 10.207303);
-    LatLng permanente = new LatLng(56.176728, 10.230386);
-    LatLng hestehaven = new LatLng(56.126349, 10.213655);
-    LatLng riisskov = new LatLng(56.177535, 10.219719);
-    LatLng havreballeStadion = new LatLng(56.137018, 10.195244);
-    LatLng mindeparken = new LatLng(56.130207, 10.20298);
-    LatLng bellevue = new LatLng(56.19051, 10.247237);
-    LatLng aakrog = new LatLng(56.202745, 10.282155);
-    LatLng skaade = new LatLng(56.101315, 10.237039);
-    LatLng moesgaardStrand = new LatLng(56.08897, 10.247685);
-    LatLng moesgaardMuseum = new LatLng(56.087183, 10.225767);
-    LatLng blommehaven = new LatLng(56.110284, 10.232246);
+    LatLng havreballe = new LatLng(56.137314, 10.203216);
+    LatLng lystrupSoenderskov = new LatLng(56.233364, 10.233634);
+    LatLng tranbjergSkov = new LatLng(56.100032, 10.115652);
+    LatLng ndrStrandmark = new LatLng(56.093136, 10.247694);
+    LatLng sdrStrandmark = new LatLng(56.08622, 10.248334);
+    LatLng ballehage = new LatLng(56.121338, 10.224553);
+    LatLng floejstrupSyd = new LatLng(56.059114, 10.259632);
+    LatLng mariendalStrand = new LatLng(56.05325, 10.266391);
+    LatLng warming = new LatLng(56.176844, 10.223534);
+    LatLng blommehaven = new LatLng(56.109069, 10.236004);
+    LatLng floejstrupNord = new LatLng(56.080965, 10.252906);
+    LatLng riisSkov = new LatLng(56.176958, 10.224011);
+    LatLng dausRiisSkov = new LatLng(56.17658, 10.223089);
+    LatLng digevejen = new LatLng(56.060971, 10.259325);
+    LatLng skoedstrup = new LatLng(56.258494, 10.292587);
+    LatLng skjoeldhoejkilen = new LatLng(56.16818, 10.130951);
+    LatLng praestevangen = new LatLng(56.164225, 10.168077);
+    LatLng oernereden = new LatLng(56.101081, 10.236555);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.kiosker);
+        setContentView(R.layout.baalpladser);
         slidingMenu = new SlidingMenu(this);
         slidingMenu.setMode(SlidingMenu.LEFT);
         slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
@@ -66,8 +70,8 @@ public class Kiosker extends Activity implements LocationListener, LocationSourc
 
         ab.setDisplayHomeAsUpEnabled(true);
 
-        ab.setTitle("Kiosker");
-        ab.setSubtitle("Kiosker nær skove/parker i Aarhus");
+        ab.setTitle("Bålpladser");
+        ab.setSubtitle("Alle bålpladser i Aarhus");
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if(locationManager != null)
@@ -217,44 +221,59 @@ public class Kiosker extends Activity implements LocationListener, LocationSourc
     }
 
     private void addTrainingMarkers(){
-        map.addMarker(new MarkerOptions().position(havreballeSkovbrynet)
-                .title("Kiosk ved Havreballe Skov; Skovbrynet")
+        map.addMarker(new MarkerOptions().position(havreballe)
+                .title("Bålplads i Havreballe Skov")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(tangkrogen)
-                .title("Kiosk ved Tangkrogen")
+        map.addMarker(new MarkerOptions().position(lystrupSoenderskov)
+                .title("Bålhus i Lystrup Sønderskov")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(permanente)
-                .title("Kiosk ved Den Permanente")
+        map.addMarker(new MarkerOptions().position(tranbjergSkov)
+                .title("Bålplads i Tranbjerg Skov")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(hestehaven)
-                .title("Kiosk ved Hestehaven")
+        map.addMarker(new MarkerOptions().position(ndrStrandmark)
+                .title("Bålplads ved Moesgård Strand - Ndr. Strandmark")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(riisskov)
-                .title("Kiosk ved Riis Skov")
+        map.addMarker(new MarkerOptions().position(sdrStrandmark)
+                .title("Bålplads ved Moesgård Strand - Sdr. Strandmark")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(havreballeStadion)
-                .title("Kiosk ved Havreballe Skov, Stadion Allé")
+        map.addMarker(new MarkerOptions().position(ballehage)
+                .title("Bålplads ved Ballehage")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(mindeparken)
-                .title("Kiosk ved Mindeparken")
+        map.addMarker(new MarkerOptions().position(floejstrupSyd)
+                .title("Bålplads i Fløjstrup Skov - Syd")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(bellevue)
-                .title("Kiosk ved Bellevue Strandpark")
+        map.addMarker(new MarkerOptions().position(mariendalStrand)
+                .title("Bålplads på Mariendal Strand")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(aakrog)
-                .title("Kiosk ved Åkrog Strandpark")
-                .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(skaade)
-                .title("Kiosk ved Skåde Skov")
-                .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(moesgaardStrand)
-                .title("Kiosk ved Moesgård Strand")
-                .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(moesgaardMuseum)
-                .title("Kiosk ved Moesgård Museum")
+        map.addMarker(new MarkerOptions().position(warming)
+                .title("Bålplads Warming på Tumlepladsen i Riis Skov")
                 .snippet("Tryk for rutevejledning"));
         map.addMarker(new MarkerOptions().position(blommehaven)
-                .title("Kiosk ved Blommehaven")
+                .title("Bålplads på stranden ved Blommehaven Camping")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(floejstrupNord)
+                .title("Bålplads i Fløjstrup Skov - Nord")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(riisSkov)
+                .title("Bålhus på Tumlepladsen i Riis Skov")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(dausRiisSkov)
+                .title("Bålplads Daus på Tumlepladsen i Riis Skov")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(digevejen)
+                .title("Bålplads ved Digevejen i Fløjstrup Skov")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(skoedstrup)
+                .title("Bålplads i Skødstrup Skov")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(skjoeldhoejkilen)
+                .title("Bålplads i Skjoldhøjkilen")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(praestevangen)
+                .title("Bålplads i Præstevangen")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(oernereden)
+                .title("Bålplads ved Ørnereden")
                 .snippet("Tryk for rutevejledning"));
     }
 
@@ -267,56 +286,76 @@ public class Kiosker extends Activity implements LocationListener, LocationSourc
 
         switch (Integer.valueOf(marker.getId().replace("m",""))){
             case 0:
-                longitude = havreballeSkovbrynet.longitude;
-                latitude = havreballeSkovbrynet.latitude;
+                longitude = havreballe.longitude;
+                latitude = havreballe.latitude;
                 break;
             case 1:
-                longitude = tangkrogen.longitude;
-                latitude = tangkrogen.latitude;
+                longitude = lystrupSoenderskov.longitude;
+                latitude = lystrupSoenderskov.latitude;
                 break;
             case 2:
-                longitude = permanente.longitude;
-                latitude = permanente.latitude;
+                longitude = tranbjergSkov.longitude;
+                latitude = tranbjergSkov.latitude;
                 break;
             case 3:
-                longitude = hestehaven.longitude;
-                latitude = hestehaven.latitude;
+                longitude = ndrStrandmark.longitude;
+                latitude = ndrStrandmark.latitude;
                 break;
             case 4:
-                longitude = riisskov.longitude;
-                latitude = riisskov.latitude;
+                longitude = sdrStrandmark.longitude;
+                latitude = sdrStrandmark.latitude;
                 break;
             case 5:
-                longitude = havreballeStadion.longitude;
-                latitude = havreballeStadion.latitude;
+                longitude = ballehage.longitude;
+                latitude = ballehage.latitude;
                 break;
             case 6:
-                longitude = mindeparken.longitude;
-                latitude = mindeparken.latitude;
+                longitude = floejstrupSyd.longitude;
+                latitude = floejstrupSyd.latitude;
                 break;
             case 7:
-                longitude = bellevue.longitude;
-                latitude = bellevue.latitude;
+                longitude = mariendalStrand.longitude;
+                latitude = mariendalStrand.latitude;
                 break;
             case 8:
-                longitude = aakrog.longitude;
-                latitude = aakrog.latitude;
+                longitude = warming.longitude;
+                latitude = warming.latitude;
                 break;
             case 9:
-                longitude = skaade.longitude;
-                latitude = skaade.latitude;
-                break;
-            case 10:
-                longitude = moesgaardStrand.longitude;
-                latitude = moesgaardStrand.latitude;
-                break;
-            case 11:
-                longitude = moesgaardMuseum.longitude;
-                latitude = moesgaardMuseum.latitude;
-                break;
-            case 12:
                 longitude = blommehaven.longitude;
                 latitude = blommehaven.latitude;
+                break;
+            case 10:
+                longitude = floejstrupNord.longitude;
+                latitude = floejstrupNord.latitude;
+                break;
+            case 11:
+                longitude = riisSkov.longitude;
+                latitude = riisSkov.latitude;
+                break;
+            case 12:
+                longitude = dausRiisSkov.longitude;
+                latitude = dausRiisSkov.latitude;
+                break;
+            case 13:
+                longitude = digevejen.longitude;
+                latitude = digevejen.latitude;
+                break;
+            case 14:
+                longitude = skoedstrup.longitude;
+                latitude = skoedstrup.latitude;
+                break;
+            case 15:
+                longitude = skjoeldhoejkilen.longitude;
+                latitude = skjoeldhoejkilen.latitude;
+                break;
+            case 16:
+                longitude = praestevangen.longitude;
+                latitude = praestevangen.latitude;
+                break;
+            case 17:
+                longitude = oernereden.longitude;
+                latitude = oernereden.latitude;
                 break;
         }
         intent = new Intent(Intent.ACTION_VIEW,

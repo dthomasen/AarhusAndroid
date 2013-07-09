@@ -42,7 +42,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/rssList"
             android:layout_gravity="center"
-            android:textAlignment="center"
             />
 
 </LinearLayout>

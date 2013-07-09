@@ -7,14 +7,11 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -30,6 +27,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     protected final String TAG = this.getClass().getName();
     private SlidingMenu slidingMenu;
     private ListView rssList;
+    private ArrayList<RssItem> feed = new ArrayList<RssItem>();
 
     /** Called when the activity is first created. */
     @Override
@@ -53,13 +51,12 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         ab.setTitle("Friluft Aarhus");
         ab.setSubtitle("App'en om friluftsliv i Aarhus");
 
-
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean showRss = sharedPreferences.getBoolean("prefShowRss", true);
 
         if(showRss){
-            ArrayList<RssItem> feed = null;
+
 
             try {
                 feed = new GetFeedTask().execute().get();
@@ -73,7 +70,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 rssList.setAdapter(new RssAdapter(this, feed));
                 rssList.setOnItemClickListener(this);
             }else{
-                Log.i(TAG, "Feed is null");
             }
         }else{
             findViewById(R.id.nyhederHL).setVisibility(View.GONE);

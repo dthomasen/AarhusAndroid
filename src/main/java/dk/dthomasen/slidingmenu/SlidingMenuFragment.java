@@ -8,14 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
+import dk.dthomasen.aarhus.activity.Baalpladser;
 import dk.dthomasen.aarhus.activity.FitnessIDetFri;
 import dk.dthomasen.aarhus.R;
 import dk.dthomasen.aarhus.activity.Hundeskove;
 import dk.dthomasen.aarhus.activity.Kiosker;
 import dk.dthomasen.aarhus.activity.Legepladser;
 import dk.dthomasen.aarhus.activity.MainActivity;
+import dk.dthomasen.aarhus.activity.Parker;
 import dk.dthomasen.aarhus.activity.Settings;
 import dk.dthomasen.aarhus.activity.Shelters;
+import dk.dthomasen.aarhus.activity.Skove;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,13 +102,13 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
                 activityIntent = new Intent(this.getActivity(), Kiosker.class);
                 break;
             case 201:
-                //Skove
+                activityIntent = new Intent(this.getActivity(), Skove.class);
                 break;
             case 202:
-                //Parker
+                activityIntent = new Intent(this.getActivity(), Parker.class);
                 break;
             case 203:
-                //Bålpladser
+                activityIntent = new Intent(this.getActivity(), Baalpladser.class);
                 break;
             case 204:
                 activityIntent = new Intent(this.getActivity(), Shelters.class);

@@ -8,7 +8,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -392,7 +391,6 @@ public class Legepladser extends Activity implements LocationListener, LocationS
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Log.i(TAG, "MARKER " + marker.getTitle());
         Location userlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         Intent intent = new Intent();
         Double longitude = 0.0;

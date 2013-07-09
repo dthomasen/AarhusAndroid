@@ -8,8 +8,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -18,7 +16,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -249,7 +246,6 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Log.i(TAG, "MARKER " + marker.getTitle());
         Location userlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         Intent intent = new Intent();
         Double longitude = 0.0;

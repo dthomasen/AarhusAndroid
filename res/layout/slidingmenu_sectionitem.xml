@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/slidingmenu_list_selector_background">
+                >
 
     <ImageView
             android:id="@+id/slidingmenu_sectionitem_icon"
@@ -18,6 +18,6 @@
             android:layout_toRightOf="@id/slidingmenu_sectionitem_icon"
             android:gravity="center_vertical"
             android:text="TextView"
-            android:textColor="#FFFFFF"/>
+            />
 
 </RelativeLayout>

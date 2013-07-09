@@ -8,7 +8,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -276,30 +275,10 @@ public class Shelters extends Activity implements LocationListener, LocationSour
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Log.i(TAG, "MARKER " + marker.getTitle());
         Location userlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         Intent intent = new Intent();
         Double longitude = 0.0;
         Double latitude = 0.0;
-
-
-        LatLng gjellerup = new LatLng(56.150408, 10.142253);
-        LatLng hoerhavenSkoven = new LatLng(56.11467, 10.22718);
-        LatLng lisbjerg = new LatLng(56.235431, 10.16946);
-        LatLng moesgaardStrand = new LatLng(56.088373, 10.244415);
-        LatLng mollerup = new LatLng(56.206293, 10.202737);
-        LatLng hoerhavenBakken = new LatLng(56.11288, 10.229495);
-        LatLng vestereng = new LatLng(56.186809, 10.183249);
-        LatLng moesgaardSkov = new LatLng(56.097863, 10.232839);
-        LatLng hoerhaven = new LatLng(56.113568, 10.230217);
-        LatLng vilhelmsborg = new LatLng(56.066575, 10.197506);
-        LatLng brendstrup = new LatLng(56.184156, 10.161816);
-        LatLng skjoldhoejkilenAlfa = new LatLng(56.169204, 10.133973);
-        LatLng skjoldhoejkilenGamma = new LatLng(56.169994, 10.124992);
-        LatLng skjoldhoejkilenDelta = new LatLng(56.171274, 10.111871);
-        LatLng skjoldhoejkilenEpsilon = new LatLng(56.171661, 10.104946);
-        LatLng egaa = new LatLng(56.213604, 10.220277);
-        LatLng lisbjergNySkov = new LatLng(56.226818, 10.171774);
 
         switch (Integer.valueOf(marker.getId().replace("m",""))){
             case 0:
