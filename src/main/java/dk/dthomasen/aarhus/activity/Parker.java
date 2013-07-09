@@ -670,8 +670,12 @@ public class Parker extends Activity implements LocationListener, LocationSource
                 latitude = tangkrogen.latitude;
                 break;
         }
-        intent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
-        startActivity(intent);
+        try{
+            intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+            startActivity(intent);
+        }catch(NullPointerException e){
+            Toast.makeText(this, "Tænd for GPS eller Placeringsdeling for at benytte rutevejledning", Toast.LENGTH_LONG).show();
+        }
     }
 }
