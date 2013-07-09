@@ -8,7 +8,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -18,7 +17,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -27,7 +25,10 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import dk.dthomasen.aarhus.R;
 
-public class FitnessIDetFri extends Activity implements LocationListener, LocationSource, GoogleMap.OnInfoWindowClickListener {
+/**
+ * Created by Dennis on 04-07-13.
+ */
+public class Kiosker extends Activity implements LocationListener, LocationSource, GoogleMap.OnInfoWindowClickListener{
 
     protected final String TAG = this.getClass().getName();
     private SlidingMenu slidingMenu;
@@ -35,22 +36,25 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
     private OnLocationChangedListener mListener;
     private LocationManager locationManager;
 
-    /**LOCATIONS**/
-    LatLng riisSkov = new LatLng(56.170016, 10.221158);
-    LatLng tangKrogen = new LatLng(56.13883, 10.210955);
-    LatLng mindeParken = new LatLng(56.129052, 10.203855);
-    LatLng skjoldhoejkilen = new LatLng(56.167978, 10.131504);
-    LatLng frederiksbjergBypark = new LatLng(56.147309, 10.190007);
-    LatLng gaasehaven = new LatLng(56.111279, 10.227528);
-    LatLng harlevBypark = new LatLng(56.14564, 9.990274);
-    LatLng brabrandstien = new LatLng(56.148723, 10.117077);
-    LatLng egelund = new LatLng(56.04813, 10.197042);
-    LatLng lyseng = new LatLng(56.112574, 10.193219);
+    /*** Locations ***/
+    LatLng havreballeSkovbrynet = new LatLng(56.13872, 10.205476);
+    LatLng tangkrogen = new LatLng(56.139317, 10.207303);
+    LatLng permanente = new LatLng(56.176728, 10.230386);
+    LatLng hestehaven = new LatLng(56.126349, 10.213655);
+    LatLng riisskov = new LatLng(56.177535, 10.219719);
+    LatLng havreballeStadion = new LatLng(56.137018, 10.195244);
+    LatLng mindeparken = new LatLng(56.130207, 10.20298);
+    LatLng bellevue = new LatLng(56.19051, 10.247237);
+    LatLng aakrog = new LatLng(56.202745, 10.282155);
+    LatLng skaade = new LatLng(56.101315, 10.237039);
+    LatLng moesgaardStrand = new LatLng(56.08897, 10.247685);
+    LatLng moesgaardMuseum = new LatLng(56.087183, 10.225767);
+    LatLng blommehaven = new LatLng(56.110284, 10.232246);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fitnessidetfri);
+        setContentView(R.layout.kiosker);
         slidingMenu = new SlidingMenu(this);
         slidingMenu.setMode(SlidingMenu.LEFT);
         slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
@@ -63,8 +67,8 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
 
         ab.setDisplayHomeAsUpEnabled(true);
 
-        ab.setTitle("Fitnesspladser");
-        ab.setSubtitle("Alle udendørs fitnesspladser i Aarhus");
+        ab.setTitle("Kiosker");
+        ab.setSubtitle("Kiosker nær skove/parker i Aarhus");
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if(locationManager != null)
@@ -214,37 +218,45 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
     }
 
     private void addTrainingMarkers(){
-        map.addMarker(new MarkerOptions().position(riisSkov)
-                .title("Riis Skov")
+        map.addMarker(new MarkerOptions().position(havreballeSkovbrynet)
+                .title("Kiosk ved Havreballe Skov; Skovbrynet")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(tangKrogen)
-                .title("Tangkrogen")
+        map.addMarker(new MarkerOptions().position(tangkrogen)
+                .title("Kiosk ved Tangkrogen")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(mindeParken)
-                .title("Mindeparken")
+        map.addMarker(new MarkerOptions().position(permanente)
+                .title("Kiosk ved Den Permanente")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(skjoldhoejkilen)
-                .title("Skjoldhøjkilen")
+        map.addMarker(new MarkerOptions().position(hestehaven)
+                .title("Kiosk ved Hestehaven")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(frederiksbjergBypark)
-                .title("Frederiksbjerg Bypark")
+        map.addMarker(new MarkerOptions().position(riisskov)
+                .title("Kiosk ved Riis Skov")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(gaasehaven)
-                .title("Fitnessplads Gåsehaven")
+        map.addMarker(new MarkerOptions().position(havreballeStadion)
+                .title("Kiosk ved Havreballe Skov, Stadion Allé")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(harlevBypark)
-                .title("Harlev Bypark")
+        map.addMarker(new MarkerOptions().position(mindeparken)
+                .title("Kiosk ved Mindeparken")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(brabrandstien)
-                .title("Brabrandstien")
+        map.addMarker(new MarkerOptions().position(bellevue)
+                .title("Kiosk ved Bellevue Strandpark")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(egelund)
-                .title("Egelund Idrætsanlæg")
+        map.addMarker(new MarkerOptions().position(aakrog)
+                .title("Kiosk ved Åkrog Strandpark")
                 .snippet("Tryk for rutevejledning"));
-        map.addMarker(new MarkerOptions().position(lyseng)
-                .title("Lyseng Idrætsanlæg")
+        map.addMarker(new MarkerOptions().position(skaade)
+                .title("Kiosk ved Skåde Skov")
                 .snippet("Tryk for rutevejledning"));
-
+        map.addMarker(new MarkerOptions().position(moesgaardStrand)
+                .title("Kiosk ved Moesgård Strand")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(moesgaardMuseum)
+                .title("Kiosk ved Moesgård Museum")
+                .snippet("Tryk for rutevejledning"));
+        map.addMarker(new MarkerOptions().position(blommehaven)
+                .title("Kiosk ved Blommehaven")
+                .snippet("Tryk for rutevejledning"));
     }
 
     @Override
@@ -255,51 +267,76 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
         Double longitude = 0.0;
         Double latitude = 0.0;
 
+        LatLng havreballeSkovbrynet = new LatLng(56.13872, 10.205476);
+        LatLng tangkrogen = new LatLng(56.139317, 10.207303);
+        LatLng permanente = new LatLng(56.176728, 10.230386);
+        LatLng hestehaven = new LatLng(56.126349, 10.213655);
+        LatLng riisskov = new LatLng(56.177535, 10.219719);
+        LatLng havreballeStadion = new LatLng(56.137018, 10.195244);
+        LatLng mindeparken = new LatLng(56.130207, 10.20298);
+        LatLng bellevue = new LatLng(56.19051, 10.247237);
+        LatLng aakrog = new LatLng(56.202745, 10.282155);
+        LatLng skaade = new LatLng(56.101315, 10.237039);
+        LatLng moesgaardStrand = new LatLng(56.08897, 10.247685);
+        LatLng moesgaardMuseum = new LatLng(56.087183, 10.225767);
+        LatLng blommehaven = new LatLng(56.110284, 10.232246);
+
         switch (Integer.valueOf(marker.getId().replace("m",""))){
             case 0:
-                longitude = riisSkov.longitude;
-                latitude = riisSkov.latitude;
+                longitude = havreballeSkovbrynet.longitude;
+                latitude = havreballeSkovbrynet.latitude;
                 break;
             case 1:
-                longitude = tangKrogen.longitude;
-                latitude = tangKrogen.latitude;
+                longitude = tangkrogen.longitude;
+                latitude = tangkrogen.latitude;
                 break;
             case 2:
-                longitude = mindeParken.longitude;
-                latitude = mindeParken.latitude;
+                longitude = permanente.longitude;
+                latitude = permanente.latitude;
                 break;
             case 3:
-                longitude = skjoldhoejkilen.longitude;
-                latitude = skjoldhoejkilen.latitude;
+                longitude = hestehaven.longitude;
+                latitude = hestehaven.latitude;
                 break;
             case 4:
-                longitude = frederiksbjergBypark.longitude;
-                latitude = frederiksbjergBypark.latitude;
+                longitude = riisskov.longitude;
+                latitude = riisskov.latitude;
                 break;
             case 5:
-                longitude = gaasehaven.longitude;
-                latitude = gaasehaven.latitude;
+                longitude = havreballeStadion.longitude;
+                latitude = havreballeStadion.latitude;
                 break;
             case 6:
-                longitude = harlevBypark.longitude;
-                latitude = harlevBypark.latitude;
+                longitude = mindeparken.longitude;
+                latitude = mindeparken.latitude;
                 break;
             case 7:
-                longitude = brabrandstien.longitude;
-                latitude = brabrandstien.latitude;
+                longitude = bellevue.longitude;
+                latitude = bellevue.latitude;
                 break;
             case 8:
-                longitude = egelund.longitude;
-                latitude = egelund.latitude;
+                longitude = aakrog.longitude;
+                latitude = aakrog.latitude;
                 break;
             case 9:
-                longitude = lyseng.longitude;
-                latitude = lyseng.latitude;
+                longitude = skaade.longitude;
+                latitude = skaade.latitude;
+                break;
+            case 10:
+                longitude = moesgaardStrand.longitude;
+                latitude = moesgaardStrand.latitude;
+                break;
+            case 11:
+                longitude = moesgaardMuseum.longitude;
+                latitude = moesgaardMuseum.latitude;
+                break;
+            case 12:
+                longitude = blommehaven.longitude;
+                latitude = blommehaven.latitude;
                 break;
         }
-        intent = new Intent(android.content.Intent.ACTION_VIEW,
-                Uri.parse("http://maps.google.com/maps?saddr="+userlocation.getLatitude()+","+userlocation.getLongitude()+"&daddr="+latitude+","+longitude+"&dirflg=w"));
+        intent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
         startActivity(intent);
     }
 }
-

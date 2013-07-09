@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Aarhus</string>
+    <string name="app_name">Friluft Aarhus</string>
+
+    <string name="pref_hl_show_rss">Nyheder fra Aarhus.dk</string>
+    <string name="pref_show_rss">Deaktiver for hurtigere åbning af app\'en</string>
+
+    <string name="pref_user_profile">Program indstillinger</string>
+
 </resources>

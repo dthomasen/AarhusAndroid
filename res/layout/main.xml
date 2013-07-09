@@ -7,27 +7,43 @@
 <TextView
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:text="Velkommen til Aarhus app'en."
+    android:text="Velkommen til Friluft Aarhus"
     android:gravity="center"
     android:textSize="25dp"
+    android:textStyle="bold"
     />
 
 <TextView
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="40dp"
+    android:layout_marginTop="20dp"
     android:gravity="center"
-    android:textSize="20dp"
-    android:text="Slide til højre for muligheder"
+    android:textSize="18dp"
+    android:text="Slide til højre for at vise menuen"
     />
 
-<TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:gravity="center"
-        android:textSize="20dp"
-        android:text="RSS fra Aarhus.dk placeholder"
-        />
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="15dp"
+            android:layout_marginTop="30dp"
+            android:text="Nyheder fra Aarhus.dk"
+            android:textStyle="bold"
+            android:id="@+id/nyhederHL"
+    />
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_middle"
+            android:id="@+id/nyhederSep"/>
+    <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rssList"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            />
+
 </LinearLayout>
 

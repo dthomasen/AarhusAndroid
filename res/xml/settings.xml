@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="@string/pref_user_profile" >
+    <CheckBoxPreference
+            android:key="prefShowRss"
+            android:summary="@string/pref_show_rss"
+            android:title="@string/pref_hl_show_rss"
+            android:defaultValue="true"
+     />
+    </PreferenceCategory>
+</PreferenceScreen>

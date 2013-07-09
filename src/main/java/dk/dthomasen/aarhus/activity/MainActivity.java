@@ -2,17 +2,35 @@ package dk.dthomasen.aarhus.activity;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-import dk.dthomasen.aarhus.R;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends Activity
-{
+import dk.dthomasen.aarhus.R;
+import dk.dthomasen.aarhus.rss.RssItem;
+import dk.dthomasen.aarhus.service.GetFeedTask;
+import dk.dthomasen.aarhus.service.RssAdapter;
+
+public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
     protected final String TAG = this.getClass().getName();
     private SlidingMenu slidingMenu;
+    private ListView rssList;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -29,11 +47,38 @@ public class MainActivity extends Activity
         slidingMenu.setMenu(R.layout.slidingmenu);
 
         ActionBar ab = getActionBar();
+        rssList = (ListView) findViewById(R.id.rssList);
 
         ab.setDisplayHomeAsUpEnabled(true);
-
-        ab.setTitle("Aarhus app'en");
+        ab.setTitle("Friluft Aarhus");
         ab.setSubtitle("App'en om friluftsliv i Aarhus");
+
+
+        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean showRss = sharedPreferences.getBoolean("prefShowRss", true);
+
+        if(showRss){
+            ArrayList<RssItem> feed = null;
+
+            try {
+                feed = new GetFeedTask().execute().get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            if(feed != null){
+                rssList.setAdapter(new RssAdapter(this, feed));
+                rssList.setOnItemClickListener(this);
+            }else{
+                Log.i(TAG, "Feed is null");
+            }
+        }else{
+            findViewById(R.id.nyhederHL).setVisibility(View.GONE);
+            findViewById(R.id.nyhederSep).setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -71,4 +116,14 @@ public class MainActivity extends Activity
         super.onPause();
         overridePendingTransition(0, 0);
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        RssItem rssItem = (RssItem) rssList.getItemAtPosition(position);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(rssItem.getLink()));
+        startActivity(intent);
+
+    }
+
 }

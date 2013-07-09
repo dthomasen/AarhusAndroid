@@ -31,6 +31,8 @@
         <activity android:name=".activity.Hundeskove"></activity>
         <activity android:name=".activity.Legepladser"></activity>
         <activity android:name=".activity.Shelters"></activity>
+        <activity android:name=".activity.Kiosker"></activity>
+        <activity android:name=".activity.Settings"></activity>
 
 
         <meta-data

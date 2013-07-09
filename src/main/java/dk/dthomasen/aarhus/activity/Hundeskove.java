@@ -79,12 +79,12 @@ public class Hundeskove extends Activity implements LocationListener, LocationSo
             if(gpsIsEnabled)
             {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 10F, this);
-                Toast.makeText(this, "Finder din placering via GPS \nVent ventligst...", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Finder din placering via GPS \nVent venligst...", Toast.LENGTH_LONG).show();
             }
             else if(networkIsEnabled)
             {
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000L, 10F, this);
-                Toast.makeText(this, "Finder din placering via netværks udbyder. \nVent ventligst...", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Finder din placering via netværks udbyder. \nVent venligst...", Toast.LENGTH_LONG).show();
             }
             else
             {
