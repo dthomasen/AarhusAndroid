@@ -6,4 +6,5 @@
     <color name="blue">#ff0d69c8</color>
     <color name="white">#FFF</color>
     <color name="transparent">#80000000</color>
+    <color name="weatherSeperator">#ffcfcfcf</color>
 </resources>
