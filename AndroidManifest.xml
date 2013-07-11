@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="dk.dthomasen.aarhus"
-          android:versionCode="2"
-          android:versionName="1.1">
+          android:versionCode="3"
+          android:versionName="1.2">
 
     <uses-sdk android:minSdkVersion="14"
               android:targetSdkVersion="17"/>
@@ -36,10 +36,12 @@
         <activity android:name=".activity.Parker"/>
         <activity android:name=".activity.Skove"/>
         <activity android:name=".activity.Settings"/>
+        <activity android:name=".activity.BaalpladsInfo"/>
+        <activity android:name=".activity.TouchImageViewActivity"/>
 
 
         <meta-data
                 android:name="com.google.android.maps.v2.API_KEY"
-                android:value="AIzaSyBXDwnuC5sUaJ8WirL0eatvTqcBj4E-Pcg" />
+                android:value="AIzaSyDRLDp8Vqc8koUJc_uTPpHBMxk9xmnsMdc" />
     </application>
 </manifest>

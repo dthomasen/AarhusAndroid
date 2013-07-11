@@ -18,6 +18,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import java.util.concurrent.ExecutionException;
 
 import dk.dthomasen.aarhus.R;
+import dk.dthomasen.aarhus.service.XmlDownload;
 import dk.dthomasen.aarhus.weather.Weather;
 import dk.dthomasen.aarhus.weather.WeatherDownload;
 
@@ -65,6 +66,7 @@ public class MainActivity extends Activity{
             ((TextView)findViewById(R.id.day3)).setText(weather.gettTommorowDay());
             ((TextView)findViewById(R.id.temp3)).setText(weather.gettTommorowTemp()+"°C");
             ((ImageView)findViewById(R.id.weathericon3)).setImageBitmap(mapCodeToIcon(weather.gettTommorowCode()));
+            new XmlDownload().execute(this).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

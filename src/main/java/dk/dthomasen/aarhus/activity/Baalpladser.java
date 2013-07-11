@@ -223,28 +223,28 @@ public class Baalpladser extends Activity implements LocationListener, LocationS
     private void addTrainingMarkers(){
         map.addMarker(new MarkerOptions().position(havreballe)
                 .title("Bålplads i Havreballe Skov")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(lystrupSoenderskov)
                 .title("Bålhus i Lystrup Sønderskov")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(tranbjergSkov)
                 .title("Bålplads i Tranbjerg Skov")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(ndrStrandmark)
                 .title("Bålplads ved Moesgård Strand - Ndr. Strandmark")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(sdrStrandmark)
                 .title("Bålplads ved Moesgård Strand - Sdr. Strandmark")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(ballehage)
                 .title("Bålplads ved Ballehage")
                 .snippet("Tryk for rutevejledning"));
         map.addMarker(new MarkerOptions().position(floejstrupSyd)
                 .title("Bålplads i Fløjstrup Skov - Syd")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(mariendalStrand)
                 .title("Bålplads på Mariendal Strand")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(warming)
                 .title("Bålplads Warming på Tumlepladsen i Riis Skov")
                 .snippet("Tryk for rutevejledning"));
@@ -253,28 +253,28 @@ public class Baalpladser extends Activity implements LocationListener, LocationS
                 .snippet("Tryk for rutevejledning"));
         map.addMarker(new MarkerOptions().position(floejstrupNord)
                 .title("Bålplads i Fløjstrup Skov - Nord")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(riisSkov)
                 .title("Bålhus på Tumlepladsen i Riis Skov")
                 .snippet("Tryk for rutevejledning"));
         map.addMarker(new MarkerOptions().position(dausRiisSkov)
                 .title("Bålplads Daus på Tumlepladsen i Riis Skov")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(digevejen)
                 .title("Bålplads ved Digevejen i Fløjstrup Skov")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(skoedstrup)
                 .title("Bålplads i Skødstrup Skov")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(skjoeldhoejkilen)
                 .title("Bålplads i Skjoldhøjkilen")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(praestevangen)
                 .title("Bålplads i Præstevangen")
                 .snippet("Tryk for rutevejledning"));
         map.addMarker(new MarkerOptions().position(oernereden)
                 .title("Bålplads ved Ørnereden")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
     }
 
     @Override
@@ -288,82 +288,128 @@ public class Baalpladser extends Activity implements LocationListener, LocationS
             case 0:
                 longitude = havreballe.longitude;
                 latitude = havreballe.latitude;
+                intent = new Intent(this, BaalpladsInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
                 break;
             case 1:
                 longitude = lystrupSoenderskov.longitude;
                 latitude = lystrupSoenderskov.latitude;
+                intent = new Intent(this, BaalpladsInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude", Double.toString(latitude));
                 break;
             case 2:
                 longitude = tranbjergSkov.longitude;
                 latitude = tranbjergSkov.latitude;
+                intent = new Intent(this, BaalpladsInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude", Double.toString(latitude));
                 break;
             case 3:
                 longitude = ndrStrandmark.longitude;
                 latitude = ndrStrandmark.latitude;
+                intent = new Intent(this, BaalpladsInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude", Double.toString(latitude));
                 break;
             case 4:
                 longitude = sdrStrandmark.longitude;
                 latitude = sdrStrandmark.latitude;
+                intent = new Intent(this, BaalpladsInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude", Double.toString(latitude));
                 break;
             case 5:
                 longitude = ballehage.longitude;
                 latitude = ballehage.latitude;
+                intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
                 break;
             case 6:
                 longitude = floejstrupSyd.longitude;
                 latitude = floejstrupSyd.latitude;
+                intent = new Intent(this, BaalpladsInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude", Double.toString(latitude));
                 break;
             case 7:
                 longitude = mariendalStrand.longitude;
                 latitude = mariendalStrand.latitude;
+                intent = new Intent(this, BaalpladsInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude", Double.toString(latitude));
                 break;
             case 8:
                 longitude = warming.longitude;
                 latitude = warming.latitude;
+                intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
                 break;
             case 9:
                 longitude = blommehaven.longitude;
                 latitude = blommehaven.latitude;
+                intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
                 break;
             case 10:
                 longitude = floejstrupNord.longitude;
                 latitude = floejstrupNord.latitude;
+                intent = new Intent(this, BaalpladsInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude", Double.toString(latitude));
                 break;
             case 11:
                 longitude = riisSkov.longitude;
                 latitude = riisSkov.latitude;
+                intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+
                 break;
             case 12:
                 longitude = dausRiisSkov.longitude;
                 latitude = dausRiisSkov.latitude;
+                intent = new Intent(this, BaalpladsInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude", Double.toString(latitude));
                 break;
             case 13:
                 longitude = digevejen.longitude;
                 latitude = digevejen.latitude;
+                intent = new Intent(this, BaalpladsInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude", Double.toString(latitude));
                 break;
             case 14:
                 longitude = skoedstrup.longitude;
                 latitude = skoedstrup.latitude;
+                intent = new Intent(this, BaalpladsInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude", Double.toString(latitude));
                 break;
             case 15:
                 longitude = skjoeldhoejkilen.longitude;
                 latitude = skjoeldhoejkilen.latitude;
+                intent = new Intent(this, BaalpladsInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude", Double.toString(latitude));
                 break;
             case 16:
                 longitude = praestevangen.longitude;
                 latitude = praestevangen.latitude;
+                intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
                 break;
             case 17:
                 longitude = oernereden.longitude;
                 latitude = oernereden.latitude;
+                intent = new Intent(this, BaalpladsInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude", Double.toString(latitude));
                 break;
         }
-        try{
-            intent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
-            startActivity(intent);
-        }catch(NullPointerException e){
-            Toast.makeText(this, "Tænd for GPS eller Placeringsdeling for at benytte rutevejledning", Toast.LENGTH_LONG).show();
-        }
+        intent.putExtra("userLatitude", Double.toString(userlocation.getLatitude()));
+        intent.putExtra("userLongitude", Double.toString(userlocation.getLongitude()));
+        startActivity(intent);
     }
 }
