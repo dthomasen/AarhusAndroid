@@ -1,6 +1,8 @@
 package dk.dthomasen.aarhus.service;
 
 import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -42,5 +44,33 @@ public class Service {
         }
 
         return dest;
+    }
+
+    public String readText(XmlPullParser parser)
+            throws IOException, XmlPullParserException {
+        String result = "";
+        if(parser.next()==XmlPullParser.TEXT){
+            result = parser.getText();
+            parser.nextTag();
+        }
+        return result;
+    }
+
+    public void skip(XmlPullParser parser)
+            throws XmlPullParserException, IOException {
+        if (parser.getEventType() != XmlPullParser.START_TAG) {
+            throw new IllegalStateException();
+        }
+        int depth = 1;
+        while (depth != 0) {
+            switch (parser.next()) {
+                case XmlPullParser.END_TAG:
+                    depth--;
+                    break;
+                case XmlPullParser.START_TAG:
+                    depth++;
+                    break;
+            }
+        }
     }
 }

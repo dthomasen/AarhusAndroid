@@ -39,6 +39,7 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener{
     private static final String ns = null;
     private String userLatitude;
     private String userLongitude;
+    private Service service = Service.getInstance();
 
     /** Called when the activity is first created. */
     @Override
@@ -73,14 +74,31 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener{
         ImageView baalImage2 = (ImageView) findViewById(R.id.baalImage2);
         ImageView baalImage3 = (ImageView) findViewById(R.id.baalImage3);
         ImageView baalImage4 = (ImageView) findViewById(R.id.baalImage4);
-        new DownloadImage(baalImage1)
-                .execute(baalplads.getBillede1());
-        new DownloadImage(baalImage2)
-                .execute(baalplads.getBillede2());
-        new DownloadImage(baalImage3)
-                .execute(baalplads.getBillede3());
-        new DownloadImage(baalImage4)
-                .execute(baalplads.getBillede4());
+
+        if(baalplads.getBillede1() != ""){
+            new DownloadImage(baalImage1)
+                    .execute(baalplads.getBillede1());
+        }else{
+            baalImage1.setVisibility(View.GONE);
+        }
+        if(baalplads.getBillede2() != ""){
+            new DownloadImage(baalImage2)
+                    .execute(baalplads.getBillede2());
+        }else{
+            baalImage2.setVisibility(View.GONE);
+        }
+        if(baalplads.getBillede3() != ""){
+            new DownloadImage(baalImage3)
+                    .execute(baalplads.getBillede3());
+        }else{
+            baalImage3.setVisibility(View.GONE);
+        }
+        if(baalplads.getBillede4() != ""){
+            new DownloadImage(baalImage4)
+                    .execute(baalplads.getBillede4());
+        }else{
+            baalImage4.setVisibility(View.GONE);
+        }
 
         ((TextView)findViewById(R.id.baalName)).setText(baalplads.getNavn());
         ((TextView)findViewById(R.id.baalBeskrivelse)).setText(baalplads.getBeskrivelse());
@@ -149,7 +167,7 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener{
                     baalplads = parseBaalsted(parser);
                     Log.i(TAG, "TOSTIRNG!!!! "+baalplads.toString());
                 }else{
-                    skip(parser);
+                    service.skip(parser);
                 }
                 Log.i(TAG,latitudeToFind+" VS. "+baalplads.getLatitude());
                 if(baalplads.getLatitude().equals(latitudeToFind) && baalplads.getLongitude().equals(longitudeToFind)){
@@ -179,19 +197,19 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener{
             String name = parser.getName();
 
             if(name.equals("navn")){
-                currentBaalplads.setNavn(readText(parser));
+                currentBaalplads.setNavn(service.readText(parser));
             }else if(name.equals("beskrivelse")){
-                currentBaalplads.setBeskrivelse(readText(parser));
+                currentBaalplads.setBeskrivelse(service.readText(parser));
             }else if(name.equals("praktisk")){
-                currentBaalplads.setPraktisk(readText(parser));
+                currentBaalplads.setPraktisk(service.readText(parser));
             }else if(name.equals("latitude")){
-                currentBaalplads.setLatitude(readText(parser));
+                currentBaalplads.setLatitude(service.readText(parser));
             }else if(name.equals("longitude")){
-                currentBaalplads.setLongitude(readText(parser));
+                currentBaalplads.setLongitude(service.readText(parser));
             }else if(name.equals("billeder")){
                 currentBaalplads = parseBilleder(parser, currentBaalplads);
             }else{
-                skip(parser);
+                service.skip(parser);
             }
         }
         return currentBaalplads;
@@ -208,46 +226,18 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener{
 
             if(name.equals("billede")){
                 if(currentBaalPlads.getBillede1().equals("")){
-                    currentBaalPlads.setBillede1(readText(parser));
+                    currentBaalPlads.setBillede1(service.readText(parser));
                 }else if(currentBaalPlads.getBillede2().equals("")){
-                    currentBaalPlads.setBillede2(readText(parser));
+                    currentBaalPlads.setBillede2(service.readText(parser));
                 }else if(currentBaalPlads.getBillede3().equals("")){
-                    currentBaalPlads.setBillede3(readText(parser));
+                    currentBaalPlads.setBillede3(service.readText(parser));
                 }else if(currentBaalPlads.getBillede4().equals("")){
-                    currentBaalPlads.setBillede4(readText(parser));
+                    currentBaalPlads.setBillede4(service.readText(parser));
                 }
             }
         }
 
         return currentBaalPlads;
-    }
-
-    private String readText(XmlPullParser parser)
-            throws IOException, XmlPullParserException{
-        String result = "";
-        if(parser.next()==XmlPullParser.TEXT){
-            result = parser.getText();
-            parser.nextTag();
-        }
-        return result;
-    }
-
-    private void skip(XmlPullParser parser)
-            throws XmlPullParserException, IOException {
-        if (parser.getEventType() != XmlPullParser.START_TAG) {
-            throw new IllegalStateException();
-        }
-        int depth = 1;
-        while (depth != 0) {
-            switch (parser.next()) {
-                case XmlPullParser.END_TAG:
-                    depth--;
-                    break;
-                case XmlPullParser.START_TAG:
-                    depth++;
-                    break;
-            }
-        }
     }
 
     @Override
