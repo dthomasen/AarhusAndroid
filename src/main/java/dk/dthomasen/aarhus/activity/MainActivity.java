@@ -2,6 +2,8 @@ package dk.dthomasen.aarhus.activity;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -90,8 +92,30 @@ public class MainActivity extends Activity{
         if ( keyCode == KeyEvent.KEYCODE_MENU ) {
             this.slidingMenu.toggle();
             return true;
+        }else if(keyCode == KeyEvent.KEYCODE_BACK) {
+            //Ask the user if they want to quit
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(R.string.quit)
+                    .setMessage(R.string.really_quit)
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            //Stop the activity
+                            MainActivity.this.finish();
+                        }
+
+                    })
+                    .setNegativeButton(R.string.no, null)
+                    .show();
+
+            return true;
         }
-        return super.onKeyDown(keyCode, event);
+        else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 
     @Override

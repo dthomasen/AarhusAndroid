@@ -6,5 +6,9 @@
     <string name="pref_show_rss">Deaktiver for hurtigere åbning af app\'en</string>
 
     <string name="pref_user_profile">Program indstillinger</string>
+    <string name="quit">Afslut</string>
+    <string name="really_quit">Er du sikker?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nej</string>
 
 </resources>

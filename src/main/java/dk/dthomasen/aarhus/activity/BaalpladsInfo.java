@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -144,7 +143,6 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener{
 
     private Baalplads parseDocument(String file){
         Baalplads baalplads = new Baalplads();
-        Log.i(TAG,"ParseDocument called!!!!");
         XmlPullParserFactory pullParserFactory = null;
         XmlPullParser parser = null;
         try {
@@ -165,20 +163,16 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener{
                 String name = parser.getName();
                 if(name.equals("baalsted")){
                     baalplads = parseBaalsted(parser);
-                    Log.i(TAG, "TOSTIRNG!!!! "+baalplads.toString());
                 }else{
                     service.skip(parser);
                 }
-                Log.i(TAG,latitudeToFind+" VS. "+baalplads.getLatitude());
                 if(baalplads.getLatitude().equals(latitudeToFind) && baalplads.getLongitude().equals(longitudeToFind)){
                     return baalplads;
                 }
             }
         } catch (XmlPullParserException e) {
-            Log.i(TAG, "Xmlpullparser1");
             e.printStackTrace();
         } catch (IOException e) {
-            Log.i(TAG, "IOException1");
             e.printStackTrace();
         }
 
