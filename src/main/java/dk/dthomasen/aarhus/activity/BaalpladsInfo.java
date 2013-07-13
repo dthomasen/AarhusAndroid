@@ -9,7 +9,6 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.fima.cardsui.views.CardUI;
@@ -21,14 +20,12 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.concurrent.ExecutionException;
 
 import dk.dthomasen.aarhus.R;
 import dk.dthomasen.aarhus.cards.DescCard;
 import dk.dthomasen.aarhus.cards.ImageCard;
 import dk.dthomasen.aarhus.cards.TitleCard;
 import dk.dthomasen.aarhus.models.Baalplads;
-import dk.dthomasen.aarhus.service.DownloadImage;
 import dk.dthomasen.aarhus.service.Service;
 
 public class BaalpladsInfo extends Activity implements View.OnClickListener{
@@ -73,7 +70,7 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener{
         baalplads = parseDocument("baalsteder.xml");
 
         // init CardView
-        mCardView = (CardUI) findViewById(R.id.cardsview);
+        mCardView = (CardUI) findViewById(R.id.baalinfocardsview);
         mCardView.setSwipeable(false);
 
         // add AndroidViews Cards
@@ -87,44 +84,6 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener{
         mCardView.addCard(descCard);
         mCardView.addCard(praktiskCard);
         mCardView.refresh();
-
-//        ImageView baalImage1 = (ImageView) findViewById(R.id.baalImage1);
-//        ImageView baalImage2 = (ImageView) findViewById(R.id.baalImage2);
-//        ImageView baalImage3 = (ImageView) findViewById(R.id.baalImage3);
-//        ImageView baalImage4 = (ImageView) findViewById(R.id.baalImage4);
-//
-//        if(baalplads.getBillede1() != ""){
-//            new DownloadImage(baalImage1)
-//                    .execute(baalplads.getBillede1());
-//        }else{
-//            baalImage1.setVisibility(View.GONE);
-//        }
-//        if(baalplads.getBillede2() != ""){
-//            new DownloadImage(baalImage2)
-//                    .execute(baalplads.getBillede2());
-//        }else{
-//            baalImage2.setVisibility(View.GONE);
-//        }
-//        if(baalplads.getBillede3() != ""){
-//            new DownloadImage(baalImage3)
-//                    .execute(baalplads.getBillede3());
-//        }else{
-//            baalImage3.setVisibility(View.GONE);
-//        }
-//        if(baalplads.getBillede4() != ""){
-//            new DownloadImage(baalImage4)
-//                    .execute(baalplads.getBillede4());
-//        }else{
-//            baalImage4.setVisibility(View.GONE);
-//        }
-//
-//        ((TextView)findViewById(R.id.baalBeskrivelse)).setText(baalplads.getBeskrivelse());
-//        ((TextView)findViewById(R.id.baalPraktisk)).setText(baalplads.getPraktisk());
-//
-//        baalImage1.setOnClickListener(this);
-//        baalImage2.setOnClickListener(this);
-//        baalImage3.setOnClickListener(this);
-
     }
 
     @Override

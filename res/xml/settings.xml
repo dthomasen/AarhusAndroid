@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <PreferenceCategory android:title="@string/pref_user_profile" >
+    <!--<PreferenceCategory android:title="@string/pref_user_profile" >
     <CheckBoxPreference
             android:key="prefShowRss"
             android:summary="@string/pref_show_rss"
             android:title="@string/pref_hl_show_rss"
             android:defaultValue="true"
      />
+    </PreferenceCategory>-->
+
+    <PreferenceCategory android:title="Download indstillinger">
+        <dk.dthomasen.aarhus.activity.ListPreferenceShowSummary
+                android:entries="@array/weather_interval_array"
+                android:entryValues="@array/weather_interval_values"
+                android:persistent="true"
+                android:title="Vejr opdaterings interval"
+                android:defaultValue="1440"
+                android:key="vejr"/>
+        <dk.dthomasen.aarhus.activity.ListPreferenceShowSummary
+                android:entries="@array/baal_interval_array"
+                android:entryValues="@array/baal_interval_values"
+                android:persistent="true"
+                android:title="Tjek for nye bålsteder"
+                android:defaultValue="30"
+                android:key="baal"/>
     </PreferenceCategory>
 </PreferenceScreen>

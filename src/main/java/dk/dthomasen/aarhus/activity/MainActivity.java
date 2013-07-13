@@ -4,29 +4,44 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.fima.cardsui.views.CardUI;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 
+import java.io.File;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 import dk.dthomasen.aarhus.R;
+import dk.dthomasen.aarhus.cards.DescCard;
+import dk.dthomasen.aarhus.cards.ForecastCard;
+import dk.dthomasen.aarhus.cards.NowWeatherCard;
+import dk.dthomasen.aarhus.cards.SunCard;
+import dk.dthomasen.aarhus.service.Service;
 import dk.dthomasen.aarhus.service.XmlDownload;
 import dk.dthomasen.aarhus.weather.Weather;
 import dk.dthomasen.aarhus.weather.WeatherDownload;
 
-public class MainActivity extends Activity{
+public class MainActivity extends Activity implements View.OnClickListener{
     protected final String TAG = this.getClass().getName();
     private SlidingMenu slidingMenu;
+    private CardUI mCardView;
 
     /** Called when the activity is first created. */
     @Override
@@ -52,28 +67,55 @@ public class MainActivity extends Activity{
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        mCardView = (CardUI) findViewById(R.id.maincardsview);
+        mCardView.setSwipeable(false);
+
+        DescCard descCard = new DescCard("Velkommen til Friluft Aarhus", "Slide til højre for at vise menuen");
+        mCardView.addCard(descCard);
+
         try {
             Weather weather = new WeatherDownload().execute().get();
-            ((ImageView)findViewById(R.id.nowIcon)).setImageBitmap(mapCodeToIcon(weather.getNowCode()));
-            ((TextView)findViewById(R.id.nowTemp)).setText("Temperatur: "+weather.getNowTemp()+ "°C");
-            ((TextView)findViewById(R.id.nowWind)).setText("Vind: "+weather.getWindSpeed()+" km/t");
-            ((TextView)findViewById(R.id.sunRise)).setText("Solopgang: "+weather.getSunrise());
-            ((TextView)findViewById(R.id.sunDown)).setText("Solnedgang: "+weather.getSunset());
-            ((TextView)findViewById(R.id.day1)).setText(weather.getTodayDay());
-            ((TextView)findViewById(R.id.temp1)).setText(weather.getTodayTemp() + "°C");
-            ((ImageView)findViewById(R.id.weathericon1)).setImageBitmap(mapCodeToIcon(weather.getTodayCode()));
-            ((TextView)findViewById(R.id.day2)).setText(weather.getTommorowDay());
-            ((TextView)findViewById(R.id.temp2)).setText(weather.getTommorowTemp()+"°C");
-            ((ImageView)findViewById(R.id.weathericon2)).setImageBitmap(mapCodeToIcon(weather.getTommorowCode()));
-            ((TextView)findViewById(R.id.day3)).setText(weather.gettTommorowDay());
-            ((TextView)findViewById(R.id.temp3)).setText(weather.gettTommorowTemp()+"°C");
-            ((ImageView)findViewById(R.id.weathericon3)).setImageBitmap(mapCodeToIcon(weather.gettTommorowCode()));
-            new XmlDownload().execute(this).get();
+            NowWeatherCard nowWeatherCard = new NowWeatherCard(this, "Vejret lige nu", "Temperatur: "+weather.getNowTemp()+"°C", weather.getNowCode(), weather.getWindSpeed());
+            nowWeatherCard.setOnClickListener(this);
+            mCardView.addCard(nowWeatherCard);
+
+            SunCard suncard = new SunCard("Sol", weather.getSunrise(), weather.getSunset());
+            suncard.setOnClickListener(this);
+            mCardView.addCard(suncard);
+
+            ForecastCard forecastcard = new ForecastCard(this, "Vejrudsigt", weather);
+            forecastcard.setOnClickListener(this);
+            mCardView.addCard(forecastcard);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
+        mCardView.refresh();
+
+        SharedPreferences runCheck = getSharedPreferences("hasRunBefore", 0);
+        Boolean hasRun = runCheck.getBoolean("hasRun", false);
+        if (!hasRun) {
+            Toast.makeText(this, "Didn't run before", Toast.LENGTH_LONG).show();
+            SharedPreferences settings = getSharedPreferences("hasRunBefore", 0);
+            SharedPreferences.Editor edit = settings.edit();
+            edit.putBoolean("hasRun", true); //set to has run
+            edit.commit(); //apply
+            new XmlDownload().execute(this);
+        }
+        else {
+            //Checking baalsteder update
+            File file = new File(getFilesDir().getAbsolutePath()+"/baalsteder.xml");
+            Date lastModDate = new Date(file.lastModified());
+            Date today = new Date();
+            String baalUpdateFreq = sharedPreferences.getString("baal","30");
+            long diff = Service.getInstance().getDateDiff(lastModDate, today, TimeUnit.DAYS);
+            if(diff <= Long.valueOf(baalUpdateFreq)){
+                new XmlDownload().execute(this);
+            }
+        }
+
 
     }
 
@@ -135,106 +177,10 @@ public class MainActivity extends Activity{
         overridePendingTransition(0, 0);
     }
 
-    private Bitmap mapCodeToIcon(String code){
-        switch (Integer.valueOf(code)){
-            case 0:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.storm);
-            case 1:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.storm);
-            case 2:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.windy);
-            case 3:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.thunderstorm);
-            case 4:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.thunderstorm);
-            case 5:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.rain_and_snow);
-            case 6:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.rain_snow);
-            case 7:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.rain_and_snow);
-            case 8:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.drizzle);
-            case 9:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.drizzle);
-            case 10:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.rain);
-            case 11:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.showers);
-            case 12:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.showers);
-            case 13:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.light_snow);
-            case 14:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.light_snow);
-            case 15:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.snow);
-            case 16:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.snow);
-            case 17:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.flurries);
-            case 18:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.sleet);
-            case 19:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.haze);
-            case 20:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.fog);
-            case 21:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.haze);
-            case 22:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.smoke);
-            case 23:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.windy);
-            case 24:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.windy);
-            case 25:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.snow_showers);
-            case 26:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.cloudy);
-            case 27:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.mostly_cloudy);
-            case 28:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.mostly_cloudy);
-            case 29:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.partly_cloudy);
-            case 30:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.partly_cloudy);
-            case 31:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.clear);
-            case 32:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.sunny);
-            case 33:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.clear);
-            case 34:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.partly_cloudy);
-            case 35:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.rain_snow);
-            case 36:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.sunny);
-            case 37:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.scattered_thunderstorms);
-            case 38:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.scattered_thunderstorms);
-            case 39:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.scattered_thunderstorms);
-            case 40:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.scattered_showers);
-            case 41:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.snow);
-            case 42:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.snow_showers);
-            case 43:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.snow);
-            case 44:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.cloudy);
-            case 45:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.thunderstorm);
-            case 46:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.snow_showers);
-            case 47:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.scattered_thunderstorms);
-            default:
-                return BitmapFactory.decodeResource(this.getResources(), R.drawable.na);
-        }
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("http://weather.yahoo.com/danmark/midtjylland/aarhus-552015/"));
+        startActivity(intent);
     }
 }

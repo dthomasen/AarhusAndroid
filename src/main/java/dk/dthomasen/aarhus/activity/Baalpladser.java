@@ -283,7 +283,7 @@ public class Baalpladser extends Activity implements LocationListener, LocationS
         Intent intent = new Intent();
         Double longitude = 0.0;
         Double latitude = 0.0;
-
+        try{
         switch (Integer.valueOf(marker.getId().replace("m",""))){
             case 0:
                 longitude = havreballe.longitude;
@@ -411,5 +411,8 @@ public class Baalpladser extends Activity implements LocationListener, LocationS
         intent.putExtra("userLatitude", Double.toString(userlocation.getLatitude()));
         intent.putExtra("userLongitude", Double.toString(userlocation.getLongitude()));
         startActivity(intent);
+        }catch (NullPointerException e){
+            Toast.makeText(this, "Tænd din GPS og vent på signal", Toast.LENGTH_LONG);
+        }
     }
 }

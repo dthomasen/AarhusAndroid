@@ -62,7 +62,7 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
 
         Section programSection = new Section("Diverse");
         programSection.addSectionItem(001, "Vejret", Integer.toString(R.drawable.weather));
-        //programSection.addSectionItem(002, "Indstillinger", Integer.toString(R.drawable.settings));
+        programSection.addSectionItem(002, "Indstillinger", Integer.toString(R.drawable.settings));
 
         Section aktiviteterSection = new Section("Aktiviteter");
         aktiviteterSection.addSectionItem(101, "Fitness i det fri", Integer.toString(R.drawable.fitness));
@@ -89,9 +89,9 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
             case 001:
                 activityIntent = new Intent(this.getActivity(), MainActivity.class);
                 break;
-            //case 002:
-              //  activityIntent = new Intent(this.getActivity(), Settings.class);
-              //  break;
+            case 002:
+                activityIntent = new Intent(this.getActivity(), Settings.class);
+                break;
             case 101:
                 activityIntent = new Intent(this.getActivity(), FitnessIDetFri.class);
                 break;
