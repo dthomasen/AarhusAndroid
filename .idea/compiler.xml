@@ -5,6 +5,7 @@
     <excludeFromCompile>
       <directory url="file://$PROJECT_DIR$/gen" includeSubdirectories="true" />
       <directory url="file://$USER_HOME$/AppData/Local/Android/android-sdk/extras/google/google_play_services/libproject/google-play-services_lib/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/libraries/CardsUILib/gen" includeSubdirectories="true" />
     </excludeFromCompile>
     <resourceExtensions />
     <wildcardResourcePatterns>

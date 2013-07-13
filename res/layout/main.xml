@@ -1,130 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
         >
     <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/scrollView"
-            android:layout_gravity="center">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            >
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Velkommen til Friluft Aarhus"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                />
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textSize="18dp"
+                android:text="Slide til højre for at vise menuen"
+                />
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:text="Vejret lige nu"
+                android:textStyle="bold"/>
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/weatherSeperator"
+                />
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:text="Temp: "
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold|italic"
+                android:id="@+id/nowTemp"/>
+
+        <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/nowIcon"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"/>
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:text="Vind: "
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold|italic"
+                android:id="@+id/nowWind"/>
+
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13dp"
+                    android:text="Solopgang: "
+                    android:textStyle="italic|bold"
+                    android:gravity="center"
+                    android:id="@+id/sunRise"
+                    android:layout_weight="1"/>
+
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13dp"
+                    android:text="Solnedgang: "
+                    android:gravity="center"
+                    android:textStyle="italic|bold"
+                    android:id="@+id/sunDown"
+                    android:layout_weight="1"/>
+        </LinearLayout>
+
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
             <LinearLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:id="@+id/frontpageText"
-                    android:layout_alignParentTop="true">
-                <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Velkommen til Friluft Aarhus"
-                        android:gravity="center"
-                        android:textSize="25dp"
-                        android:textStyle="bold"
-                        />
-
-                <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:gravity="center"
-                        android:textSize="18dp"
-                        android:text="Slide til højre for at vise menuen"
-                        />
-
-                <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:gravity="center"
-                        android:textSize="25dp"
-                        android:text="Vejret lige nu"
-                        android:textStyle="bold"/>
-                <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/weatherSeperator"
-                        />
-                <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:gravity="center"
-                        android:textSize="15dp"
-                        android:text="Temp: "
-                        android:layout_gravity="center_horizontal"
-                        android:textStyle="bold|italic"
-                        android:id="@+id/nowTemp"/>
-
-                <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:id="@+id/nowIcon"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center_horizontal"/>
-
-                <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:textSize="15dp"
-                        android:text="Vind: "
-                        android:layout_gravity="center_horizontal"
-                        android:textStyle="bold|italic"
-                        android:id="@+id/nowWind"/>
-
-                <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="10dp"
-                        android:paddingTop="20dp">
-                    <TextView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="13dp"
-                            android:text="Solopgang: "
-                            android:textStyle="italic|bold"
-                            android:gravity="center"
-                            android:id="@+id/sunRise"
-                            android:layout_weight="1"/>
-
-                    <TextView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="13dp"
-                            android:text="Solnedgang: "
-                            android:gravity="center"
-                            android:textStyle="italic|bold"
-                            android:id="@+id/sunDown"
-                            android:layout_weight="1"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:layout_below="@id/frontpageText"
-                    android:layout_alignParentBottom="true"
-                    android:paddingTop="30dp">
+                    android:layout_alignParentBottom="true">
                 <View
                         android:layout_width="fill_parent"
                         android:layout_height="1dp"
                         android:background="@color/weatherSeperator"
                         />
                 <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="horizontal"
+                        android:layout_alignParentBottom="true"
                         android:id="@+id/weatherLayout">
 
                     <LinearLayout
@@ -216,12 +212,8 @@
                                 android:layout_gravity="center"/>
                     </LinearLayout>
                 </LinearLayout>
-                <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/weatherSeperator"
-                        />
             </LinearLayout>
         </RelativeLayout>
+    </LinearLayout>
     </ScrollView>
 </LinearLayout>

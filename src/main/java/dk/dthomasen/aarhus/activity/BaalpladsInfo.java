@@ -10,21 +10,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fima.cardsui.views.CardUI;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-import org.w3c.dom.Document;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
+import java.util.concurrent.ExecutionException;
 
 import dk.dthomasen.aarhus.R;
+import dk.dthomasen.aarhus.cards.DescCard;
+import dk.dthomasen.aarhus.cards.ImageCard;
+import dk.dthomasen.aarhus.cards.TitleCard;
 import dk.dthomasen.aarhus.models.Baalplads;
 import dk.dthomasen.aarhus.service.DownloadImage;
 import dk.dthomasen.aarhus.service.Service;
@@ -39,6 +41,7 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener{
     private String userLatitude;
     private String userLongitude;
     private Service service = Service.getInstance();
+    private CardUI mCardView;
 
     /** Called when the activity is first created. */
     @Override
@@ -69,43 +72,58 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener{
         userLongitude = intent.getExtras().getString("userLongitude");
         baalplads = parseDocument("baalsteder.xml");
 
-        ImageView baalImage1 = (ImageView) findViewById(R.id.baalImage1);
-        ImageView baalImage2 = (ImageView) findViewById(R.id.baalImage2);
-        ImageView baalImage3 = (ImageView) findViewById(R.id.baalImage3);
-        ImageView baalImage4 = (ImageView) findViewById(R.id.baalImage4);
+        // init CardView
+        mCardView = (CardUI) findViewById(R.id.cardsview);
+        mCardView.setSwipeable(false);
 
-        if(baalplads.getBillede1() != ""){
-            new DownloadImage(baalImage1)
-                    .execute(baalplads.getBillede1());
-        }else{
-            baalImage1.setVisibility(View.GONE);
-        }
-        if(baalplads.getBillede2() != ""){
-            new DownloadImage(baalImage2)
-                    .execute(baalplads.getBillede2());
-        }else{
-            baalImage2.setVisibility(View.GONE);
-        }
-        if(baalplads.getBillede3() != ""){
-            new DownloadImage(baalImage3)
-                    .execute(baalplads.getBillede3());
-        }else{
-            baalImage3.setVisibility(View.GONE);
-        }
-        if(baalplads.getBillede4() != ""){
-            new DownloadImage(baalImage4)
-                    .execute(baalplads.getBillede4());
-        }else{
-            baalImage4.setVisibility(View.GONE);
-        }
+        // add AndroidViews Cards
+        TitleCard nameCard = new TitleCard(baalplads.getNavn());
+        DescCard descCard = new DescCard("Beskrivelse", baalplads.getBeskrivelse());
+        DescCard praktiskCard = new DescCard("Praktisk", baalplads.getPraktisk());
+        ImageCard imageCard = new ImageCard(this, "Billeder", baalplads.getBillede1(), baalplads.getBillede2(), baalplads.getBillede3(), baalplads.getBillede4());
 
-        ((TextView)findViewById(R.id.baalName)).setText(baalplads.getNavn());
-        ((TextView)findViewById(R.id.baalBeskrivelse)).setText(baalplads.getBeskrivelse());
-        ((TextView)findViewById(R.id.baalPraktisk)).setText(baalplads.getPraktisk());
+        mCardView.addCard(nameCard);
+        mCardView.addCard(imageCard);
+        mCardView.addCard(descCard);
+        mCardView.addCard(praktiskCard);
+        mCardView.refresh();
 
-        baalImage1.setOnClickListener(this);
-        baalImage2.setOnClickListener(this);
-        baalImage3.setOnClickListener(this);
+//        ImageView baalImage1 = (ImageView) findViewById(R.id.baalImage1);
+//        ImageView baalImage2 = (ImageView) findViewById(R.id.baalImage2);
+//        ImageView baalImage3 = (ImageView) findViewById(R.id.baalImage3);
+//        ImageView baalImage4 = (ImageView) findViewById(R.id.baalImage4);
+//
+//        if(baalplads.getBillede1() != ""){
+//            new DownloadImage(baalImage1)
+//                    .execute(baalplads.getBillede1());
+//        }else{
+//            baalImage1.setVisibility(View.GONE);
+//        }
+//        if(baalplads.getBillede2() != ""){
+//            new DownloadImage(baalImage2)
+//                    .execute(baalplads.getBillede2());
+//        }else{
+//            baalImage2.setVisibility(View.GONE);
+//        }
+//        if(baalplads.getBillede3() != ""){
+//            new DownloadImage(baalImage3)
+//                    .execute(baalplads.getBillede3());
+//        }else{
+//            baalImage3.setVisibility(View.GONE);
+//        }
+//        if(baalplads.getBillede4() != ""){
+//            new DownloadImage(baalImage4)
+//                    .execute(baalplads.getBillede4());
+//        }else{
+//            baalImage4.setVisibility(View.GONE);
+//        }
+//
+//        ((TextView)findViewById(R.id.baalBeskrivelse)).setText(baalplads.getBeskrivelse());
+//        ((TextView)findViewById(R.id.baalPraktisk)).setText(baalplads.getPraktisk());
+//
+//        baalImage1.setOnClickListener(this);
+//        baalImage2.setOnClickListener(this);
+//        baalImage3.setOnClickListener(this);
 
     }
 
@@ -237,15 +255,18 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(this, TouchImageViewActivity.class);
-        if(v.getId() == R.id.baalImage1){
+        if(v.getId() == R.id.cardImage1){
             intent.putExtra("url",baalplads.getBillede1());
             startActivity(intent);
-        }else if(v.getId() == R.id.baalImage2){
+        }else if(v.getId() == R.id.cardImage2){
             intent.putExtra("url",baalplads.getBillede2());
             startActivity(intent);
-        }else if(v.getId() == R.id.baalImage3){
-            intent.putExtra("url",baalplads.getBillede3());
-            startActivity(intent);
+        }else if(v.getId() == R.id.cardImage3){
+                intent.putExtra("url",baalplads.getBillede3());
+                startActivity(intent);
+        }else if(v.getId() == R.id.cardImage4){
+                intent.putExtra("url",baalplads.getBillede4());
+                startActivity(intent);
         }else if(v.getId() == R.id.ABNavigateButton){
             try{
                 intent = new Intent(Intent.ACTION_VIEW,
@@ -255,6 +276,5 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener{
                 Toast.makeText(this, "Tænd for GPS eller Placeringsdeling for at benytte rutevejledning", Toast.LENGTH_LONG).show();
             }
         }
-
     }
 }
