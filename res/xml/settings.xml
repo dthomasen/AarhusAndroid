@@ -10,13 +10,13 @@
     </PreferenceCategory>-->
 
     <PreferenceCategory android:title="Download indstillinger">
-        <dk.dthomasen.aarhus.activity.ListPreferenceShowSummary
+        <!--<dk.dthomasen.aarhus.activity.ListPreferenceShowSummary
                 android:entries="@array/weather_interval_array"
                 android:entryValues="@array/weather_interval_values"
                 android:persistent="true"
                 android:title="Vejr opdaterings interval"
                 android:defaultValue="1440"
-                android:key="vejr"/>
+                android:key="vejr"/>-->
         <dk.dthomasen.aarhus.activity.ListPreferenceShowSummary
                 android:entries="@array/baal_interval_array"
                 android:entryValues="@array/baal_interval_values"

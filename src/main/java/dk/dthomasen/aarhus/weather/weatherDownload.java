@@ -36,7 +36,6 @@ public class WeatherDownload extends AsyncTask<Void, Void, Weather>{
             // maybe throw it again
             throw new RuntimeException(t);
         }
-
     }
 
     private Weather parseWeather(Document srcDoc) throws IOException {

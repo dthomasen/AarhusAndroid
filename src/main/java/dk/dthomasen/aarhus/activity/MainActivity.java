@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fima.cardsui.views.CardUI;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -97,7 +96,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
         SharedPreferences runCheck = getSharedPreferences("hasRunBefore", 0);
         Boolean hasRun = runCheck.getBoolean("hasRun", false);
         if (!hasRun) {
-            Toast.makeText(this, "Didn't run before", Toast.LENGTH_LONG).show();
             SharedPreferences settings = getSharedPreferences("hasRunBefore", 0);
             SharedPreferences.Editor edit = settings.edit();
             edit.putBoolean("hasRun", true); //set to has run
