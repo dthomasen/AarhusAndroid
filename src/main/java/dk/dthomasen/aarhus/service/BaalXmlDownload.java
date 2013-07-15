@@ -19,7 +19,7 @@ import java.net.MalformedURLException;
 /**
  * Created by Dennis on 10-07-13.
  */
-public class XmlDownload extends AsyncTask<Context, Void, Boolean>{
+public class BaalXmlDownload extends AsyncTask<Context, Void, Boolean>{
 
     private Context mainActivity;
     protected final String TAG = this.getClass().getName();

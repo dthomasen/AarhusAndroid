@@ -10,13 +10,13 @@
     </string-array>
 
     <string-array name="weather_interval_values">
-        <item>30</item>
-        <item>60</item>
-        <item>120</item>
-        <item>360</item>
-        <item>720</item>
-        <item>1440</item>
-    </string-array>
+    <item>30</item>
+    <item>60</item>
+    <item>120</item>
+    <item>360</item>
+    <item>720</item>
+    <item>1440</item>
+</string-array>
     <string-array name="baal_interval_array">
         <item>Hver dag</item>
         <item>En gang om ugen</item>
@@ -25,6 +25,20 @@
     </string-array>
 
     <string-array name="baal_interval_values">
+        <item>1</item>
+        <item>7</item>
+        <item>14</item>
+        <item>30</item>
+    </string-array>
+
+    <string-array name="shelter_interval_array">
+        <item>Hver dag</item>
+        <item>En gang om ugen</item>
+        <item>Hver 14. dag</item>
+        <item>En gang om måneden</item>
+    </string-array>
+
+    <string-array name="shelter_interval_values">
         <item>1</item>
         <item>7</item>
         <item>14</item>

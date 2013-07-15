@@ -24,5 +24,12 @@
                 android:title="Tjek for nye bålsteder"
                 android:defaultValue="30"
                 android:key="baal"/>
+        <dk.dthomasen.aarhus.activity.ListPreferenceShowSummary
+                android:entries="@array/shelter_interval_array"
+                android:entryValues="@array/shelter_interval_values"
+                android:persistent="true"
+                android:title="Tjek for nye shelters"
+                android:defaultValue="30"
+                android:key="shelter"/>
     </PreferenceCategory>
 </PreferenceScreen>

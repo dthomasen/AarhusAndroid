@@ -6,17 +6,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.fima.cardsui.views.CardUI;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -32,8 +29,9 @@ import dk.dthomasen.aarhus.cards.DescCard;
 import dk.dthomasen.aarhus.cards.ForecastCard;
 import dk.dthomasen.aarhus.cards.NowWeatherCard;
 import dk.dthomasen.aarhus.cards.SunCard;
+import dk.dthomasen.aarhus.service.BaalXmlDownload;
 import dk.dthomasen.aarhus.service.Service;
-import dk.dthomasen.aarhus.service.XmlDownload;
+import dk.dthomasen.aarhus.service.ShelterXmlDownload;
 import dk.dthomasen.aarhus.weather.Weather;
 import dk.dthomasen.aarhus.weather.WeatherDownload;
 
@@ -93,14 +91,32 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         mCardView.refresh();
 
+        int versionCode = 0;
+        try {
+            PackageInfo packageInfo = this.getPackageManager()
+                    .getPackageInfo(this.getPackageName(), 0);
+            versionCode = packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        SharedPreferences sp = getSharedPreferences("version", Activity.MODE_PRIVATE);
+        int versionCodeStored = sp.getInt("version",0);
+
         SharedPreferences runCheck = getSharedPreferences("hasRunBefore", 0);
         Boolean hasRun = runCheck.getBoolean("hasRun", false);
-        if (!hasRun) {
+        if (!hasRun || versionCode != versionCodeStored) {
             SharedPreferences settings = getSharedPreferences("hasRunBefore", 0);
             SharedPreferences.Editor edit = settings.edit();
             edit.putBoolean("hasRun", true); //set to has run
             edit.commit(); //apply
-            new XmlDownload().execute(this);
+
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putInt("version", versionCode);
+            editor.commit();
+
+            new BaalXmlDownload().execute(this);
+            new ShelterXmlDownload().execute(this);
         }
         else {
             //Checking baalsteder update
@@ -110,7 +126,17 @@ public class MainActivity extends Activity implements View.OnClickListener{
             String baalUpdateFreq = sharedPreferences.getString("baal","30");
             long diff = Service.getInstance().getDateDiff(lastModDate, today, TimeUnit.DAYS);
             if(diff <= Long.valueOf(baalUpdateFreq)){
-                new XmlDownload().execute(this);
+                new BaalXmlDownload().execute(this);
+            }
+
+            //Checking shelters update
+            file = new File(getFilesDir().getAbsolutePath()+"/shelters.xml");
+            lastModDate = new Date(file.lastModified());
+            today = new Date();
+            String shelterUpdateFreq = sharedPreferences.getString("shelter","30");
+            diff = Service.getInstance().getDateDiff(lastModDate, today, TimeUnit.DAYS);
+            if(diff <= Long.valueOf(shelterUpdateFreq)){
+                new ShelterXmlDownload().execute(this);
             }
         }
 
