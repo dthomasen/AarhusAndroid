@@ -213,34 +213,34 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
     private void addTrainingMarkers(){
         map.addMarker(new MarkerOptions().position(riisSkov)
                 .title("Riis Skov")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(tangKrogen)
                 .title("Tangkrogen")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(mindeParken)
                 .title("Mindeparken")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(skjoldhoejkilen)
                 .title("Skjoldhøjkilen")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(frederiksbjergBypark)
                 .title("Frederiksbjerg Bypark")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(gaasehaven)
                 .title("Fitnessplads Gåsehaven")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(harlevBypark)
                 .title("Harlev Bypark")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(brabrandstien)
                 .title("Brabrandstien")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(egelund)
                 .title("Egelund Idrætsanlæg")
                 .snippet("Tryk for rutevejledning"));
         map.addMarker(new MarkerOptions().position(lyseng)
                 .title("Lyseng Idrætsanlæg")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
 
     }
 
@@ -250,55 +250,83 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
         Intent intent = new Intent();
         Double longitude = 0.0;
         Double latitude = 0.0;
-
-        switch (Integer.valueOf(marker.getId().replace("m",""))){
-            case 0:
-                longitude = riisSkov.longitude;
-                latitude = riisSkov.latitude;
-                break;
-            case 1:
-                longitude = tangKrogen.longitude;
-                latitude = tangKrogen.latitude;
-                break;
-            case 2:
-                longitude = mindeParken.longitude;
-                latitude = mindeParken.latitude;
-                break;
-            case 3:
-                longitude = skjoldhoejkilen.longitude;
-                latitude = skjoldhoejkilen.latitude;
-                break;
-            case 4:
-                longitude = frederiksbjergBypark.longitude;
-                latitude = frederiksbjergBypark.latitude;
-                break;
-            case 5:
-                longitude = gaasehaven.longitude;
-                latitude = gaasehaven.latitude;
-                break;
-            case 6:
-                longitude = harlevBypark.longitude;
-                latitude = harlevBypark.latitude;
-                break;
-            case 7:
-                longitude = brabrandstien.longitude;
-                latitude = brabrandstien.latitude;
-                break;
-            case 8:
-                longitude = egelund.longitude;
-                latitude = egelund.latitude;
-                break;
-            case 9:
-                longitude = lyseng.longitude;
-                latitude = lyseng.latitude;
-                break;
-        }
         try{
-            intent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+            switch (Integer.valueOf(marker.getId().replace("m",""))){
+                case 0:
+                    longitude = riisSkov.longitude;
+                    latitude = riisSkov.latitude;
+                    intent = new Intent(this, FitnessInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 1:
+                    longitude = tangKrogen.longitude;
+                    latitude = tangKrogen.latitude;
+                    intent = new Intent(this, FitnessInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 2:
+                    longitude = mindeParken.longitude;
+                    latitude = mindeParken.latitude;
+                    intent = new Intent(this, FitnessInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 3:
+                    longitude = skjoldhoejkilen.longitude;
+                    latitude = skjoldhoejkilen.latitude;
+                    intent = new Intent(this, FitnessInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 4:
+                    longitude = frederiksbjergBypark.longitude;
+                    latitude = frederiksbjergBypark.latitude;
+                    intent = new Intent(this, FitnessInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 5:
+                    longitude = gaasehaven.longitude;
+                    latitude = gaasehaven.latitude;
+                    intent = new Intent(this, FitnessInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 6:
+                    longitude = harlevBypark.longitude;
+                    latitude = harlevBypark.latitude;
+                    intent = new Intent(this, FitnessInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 7:
+                    longitude = brabrandstien.longitude;
+                    latitude = brabrandstien.latitude;
+                    intent = new Intent(this, FitnessInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 8:
+                    longitude = egelund.longitude;
+                    latitude = egelund.latitude;
+                    intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                    break;
+                case 9:
+                    longitude = lyseng.longitude;
+                    latitude = lyseng.latitude;
+                    intent = new Intent(this, FitnessInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+            }
+            intent.putExtra("userLatitude", Double.toString(userlocation.getLatitude()));
+            intent.putExtra("userLongitude", Double.toString(userlocation.getLongitude()));
             startActivity(intent);
-        }catch(NullPointerException e){
-            Toast.makeText(this, "Tænd for GPS eller Placeringsdeling for at benytte rutevejledning", Toast.LENGTH_LONG).show();
+        }catch (NullPointerException e){
+            Toast.makeText(this, "Tænd din GPS og vent på signal", Toast.LENGTH_LONG);
         }
     }
 }

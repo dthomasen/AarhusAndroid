@@ -333,6 +333,8 @@ public class Shelters extends Activity implements LocationListener, LocationSour
                 case 7:
                     longitude = moesgaardSkov.longitude;
                     latitude = moesgaardSkov.latitude;
+                    intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
                     break;
                 case 8:
                     longitude = hoerhaven.longitude;
@@ -379,6 +381,8 @@ public class Shelters extends Activity implements LocationListener, LocationSour
                 case 14:
                     longitude = skjoldhoejkilenEpsilon.longitude;
                     latitude = skjoldhoejkilenEpsilon.latitude;
+                    intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
                     break;
                 case 15:
                     longitude = egaa.longitude;

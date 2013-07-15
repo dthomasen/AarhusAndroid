@@ -31,5 +31,12 @@
                 android:title="Tjek for nye shelters"
                 android:defaultValue="30"
                 android:key="shelter"/>
+        <dk.dthomasen.aarhus.activity.ListPreferenceShowSummary
+                android:entries="@array/fitness_interval_array"
+                android:entryValues="@array/fitness_interval_values"
+                android:persistent="true"
+                android:title="Tjek for nye fitnesspladser"
+                android:defaultValue="30"
+                android:key="fitness"/>
     </PreferenceCategory>
 </PreferenceScreen>
