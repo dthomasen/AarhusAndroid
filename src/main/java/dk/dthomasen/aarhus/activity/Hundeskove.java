@@ -219,31 +219,31 @@ public class Hundeskove extends Activity implements LocationListener, LocationSo
     private void addTrainingMarkers(){
         map.addMarker(new MarkerOptions().position(mollerupSkov)
                 .title("Mollerup Skov")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(vestereng)
                 .title("Vestereng")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(riisSkov)
                 .title("Riis skov")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(aarslevSkov)
                 .title("Årslev Skov")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(havreballeSkov)
                 .title("Havreballe Skov")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(moesgaardSkov)
                 .title("Moesgård Skov")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(tranbjergGroenloekkepark)
                 .title("Tranbjerg Grønløkkepark")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(skoedstrupSkov)
                 .title("Skødstrup Skov")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(lystrupSkov)
                 .title("Lystrup Skov")
-                .snippet("Tryk for rutevejledning"));
+                .snippet("Tryk for yderligere info"));
         map.addMarker(new MarkerOptions().position(baermoseSkov)
                 .title("Bærmoseskov")
                 .snippet("Tryk for rutevejledning"));
@@ -264,67 +264,101 @@ public class Hundeskove extends Activity implements LocationListener, LocationSo
         Intent intent = new Intent();
         Double longitude = 0.0;
         Double latitude = 0.0;
-
-        switch (Integer.valueOf(marker.getId().replace("m",""))){
-            case 0:
-                longitude = mollerupSkov.longitude;
-                latitude = mollerupSkov.latitude;
-                break;
-            case 1:
-                longitude = vestereng.longitude;
-                latitude = vestereng.latitude;
-                break;
-            case 2:
-                longitude = riisSkov.longitude;
-                latitude = riisSkov.latitude;
-                break;
-            case 3:
-                longitude = aarslevSkov.longitude;
-                latitude = aarslevSkov.latitude;
-                break;
-            case 4:
-                longitude = havreballeSkov.longitude;
-                latitude = havreballeSkov.latitude;
-                break;
-            case 5:
-                longitude = moesgaardSkov.longitude;
-                latitude = moesgaardSkov.latitude;
-                break;
-            case 6:
-                longitude = tranbjergGroenloekkepark.longitude;
-                latitude = tranbjergGroenloekkepark.latitude;
-                break;
-            case 7:
-                longitude = skoedstrupSkov.longitude;
-                latitude = skoedstrupSkov.latitude;
-                break;
-            case 8:
-                longitude = lystrupSkov.longitude;
-                latitude = lystrupSkov.latitude;
-                break;
-            case 9:
-                longitude = baermoseSkov.longitude;
-                latitude = baermoseSkov.latitude;
-                break;
-            case 10:
-                longitude = trueSkovBlankhoej.longitude;
-                latitude = trueSkovBlankhoej.latitude;
-                break;
-            case 11:
-                longitude = trueSkovSkjoldhoejvej.longitude;
-                latitude = trueSkovSkjoldhoejvej.latitude;
-                break;
-            case 12:
-                longitude = solbjergHundeskov.longitude;
-                latitude = solbjergHundeskov.latitude;
-                break;
-        }
         try{
-            intent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+            switch (Integer.valueOf(marker.getId().replace("m",""))){
+                case 0:
+                    longitude = mollerupSkov.longitude;
+                    latitude = mollerupSkov.latitude;
+                    intent = new Intent(this, HundeskoveInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 1:
+                    longitude = vestereng.longitude;
+                    latitude = vestereng.latitude;
+                    intent = new Intent(this, HundeskoveInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 2:
+                    longitude = riisSkov.longitude;
+                    latitude = riisSkov.latitude;
+                    intent = new Intent(this, HundeskoveInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 3:
+                    longitude = aarslevSkov.longitude;
+                    latitude = aarslevSkov.latitude;
+                    intent = new Intent(this, HundeskoveInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 4:
+                    longitude = havreballeSkov.longitude;
+                    latitude = havreballeSkov.latitude;
+                    intent = new Intent(this, HundeskoveInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 5:
+                    longitude = moesgaardSkov.longitude;
+                    latitude = moesgaardSkov.latitude;
+                    intent = new Intent(this, HundeskoveInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 6:
+                    longitude = tranbjergGroenloekkepark.longitude;
+                    latitude = tranbjergGroenloekkepark.latitude;
+                    intent = new Intent(this, HundeskoveInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 7:
+                    longitude = skoedstrupSkov.longitude;
+                    latitude = skoedstrupSkov.latitude;
+                    intent = new Intent(this, HundeskoveInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 8:
+                    longitude = lystrupSkov.longitude;
+                    latitude = lystrupSkov.latitude;
+                    intent = new Intent(this, HundeskoveInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    break;
+                case 9:
+                    longitude = baermoseSkov.longitude;
+                    latitude = baermoseSkov.latitude;
+                    intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                    break;
+                case 10:
+                    longitude = trueSkovBlankhoej.longitude;
+                    latitude = trueSkovBlankhoej.latitude;
+                    intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                    break;
+                case 11:
+                    longitude = trueSkovSkjoldhoejvej.longitude;
+                    latitude = trueSkovSkjoldhoejvej.latitude;
+                    intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                    break;
+                case 12:
+                    longitude = solbjergHundeskov.longitude;
+                    latitude = solbjergHundeskov.latitude;
+                    intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                    break;
+            }
+            intent.putExtra("userLatitude", Double.toString(userlocation.getLatitude()));
+            intent.putExtra("userLongitude", Double.toString(userlocation.getLongitude()));
             startActivity(intent);
-        }catch(NullPointerException e){
-            Toast.makeText(this, "Tænd for GPS eller Placeringsdeling for at benytte rutevejledning", Toast.LENGTH_LONG).show();
+        }catch (NullPointerException e){
+            Toast.makeText(this, "Tænd din GPS og vent på signal", Toast.LENGTH_LONG);
         }
     }
 }

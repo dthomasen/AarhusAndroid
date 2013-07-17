@@ -81,9 +81,17 @@ public class FitnessInfo extends Activity implements View.OnClickListener{
         ImageCard imageCard = new ImageCard(this, "Billeder", fitness.getBillede1(), fitness.getBillede2(), fitness.getBillede3(), fitness.getBillede4());
 
         mCardView.addCard(nameCard);
-        mCardView.addCard(imageCard);
-        mCardView.addCard(descCard);
-        mCardView.addCard(praktiskCard);
+
+        if(fitness.getBillede1() != ""){
+            mCardView.addCard(imageCard);
+        }
+        if(fitness.getBeskrivelse() != ""){
+            mCardView.addCard(descCard);
+        }
+
+        if(fitness.getPraktisk() != ""){
+            mCardView.addCard(praktiskCard);
+        }
         mCardView.refresh();
     }
 
@@ -222,11 +230,11 @@ public class FitnessInfo extends Activity implements View.OnClickListener{
             intent.putExtra("url",fitness.getBillede2());
             startActivity(intent);
         }else if(v.getId() == R.id.cardImage3){
-                intent.putExtra("url",fitness.getBillede3());
-                startActivity(intent);
+            intent.putExtra("url",fitness.getBillede3());
+            startActivity(intent);
         }else if(v.getId() == R.id.cardImage4){
-                intent.putExtra("url",fitness.getBillede4());
-                startActivity(intent);
+            intent.putExtra("url",fitness.getBillede4());
+            startActivity(intent);
         }else if(v.getId() == R.id.ABNavigateButton){
             try{
                 intent = new Intent(Intent.ACTION_VIEW,

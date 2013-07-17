@@ -46,13 +46,27 @@
     </string-array>
 
     <string-array name="fitness_interval_array">
+    <item>Hver dag</item>
+    <item>En gang om ugen</item>
+    <item>Hver 14. dag</item>
+    <item>En gang om måneden</item>
+</string-array>
+
+    <string-array name="fitness_interval_values">
+        <item>1</item>
+        <item>7</item>
+        <item>14</item>
+        <item>30</item>
+    </string-array>
+
+    <string-array name="hundeskove_interval_array">
         <item>Hver dag</item>
         <item>En gang om ugen</item>
         <item>Hver 14. dag</item>
         <item>En gang om måneden</item>
     </string-array>
 
-    <string-array name="fitness_interval_values">
+    <string-array name="hundeskove_interval_values">
         <item>1</item>
         <item>7</item>
         <item>14</item>

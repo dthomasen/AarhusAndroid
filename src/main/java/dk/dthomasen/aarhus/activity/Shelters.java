@@ -81,12 +81,12 @@ public class Shelters extends Activity implements LocationListener, LocationSour
             if(gpsIsEnabled)
             {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 10F, this);
-                Toast.makeText(this, "Finder din placering via GPS \nVent venligst...", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Finder din placering via GPS", Toast.LENGTH_LONG).show();
             }
             else if(networkIsEnabled)
             {
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000L, 10F, this);
-                Toast.makeText(this, "Finder din placering via netværks udbyder. \nVent venligst...", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Finder din placering via netværks udbyder", Toast.LENGTH_LONG).show();
             }
             else
             {
@@ -280,130 +280,144 @@ public class Shelters extends Activity implements LocationListener, LocationSour
         Double longitude = 0.0;
         Double latitude = 0.0;
         try{
-            switch (Integer.valueOf(marker.getId().replace("m",""))){
-                case 0:
-                    longitude = gjellerup.longitude;
-                    latitude = gjellerup.latitude;
-                    intent = new Intent(this, SheltersInfo.class);
-                    intent.putExtra("longitude", Double.toString(longitude));
-                    intent.putExtra("latitude",Double.toString(latitude));
-                    break;
-                case 1:
-                    longitude = hoerhavenSkoven.longitude;
-                    latitude = hoerhavenSkoven.latitude;
-                    intent = new Intent(this, SheltersInfo.class);
-                    intent.putExtra("longitude", Double.toString(longitude));
-                    intent.putExtra("latitude",Double.toString(latitude));
-                    break;
-                case 2:
-                    longitude = lisbjerg.longitude;
-                    latitude = lisbjerg.latitude;
-                    intent = new Intent(this, SheltersInfo.class);
-                    intent.putExtra("longitude", Double.toString(longitude));
-                    intent.putExtra("latitude",Double.toString(latitude));
-                    break;
-                case 3:
-                    longitude = moesgaardStrand.longitude;
-                    latitude = moesgaardStrand.latitude;
-                    intent = new Intent(this, SheltersInfo.class);
-                    intent.putExtra("longitude", Double.toString(longitude));
-                    intent.putExtra("latitude",Double.toString(latitude));
-                    break;
-                case 4:
-                    longitude = mollerup.longitude;
-                    latitude = mollerup.latitude;
-                    intent = new Intent(this, SheltersInfo.class);
-                    intent.putExtra("longitude", Double.toString(longitude));
-                    intent.putExtra("latitude",Double.toString(latitude));
-                    break;
-                case 5:
-                    longitude = hoerhavenBakken.longitude;
-                    latitude = hoerhavenBakken.latitude;
-                    intent = new Intent(this, SheltersInfo.class);
-                    intent.putExtra("longitude", Double.toString(longitude));
-                    intent.putExtra("latitude",Double.toString(latitude));
-                    break;
-                case 6:
-                    longitude = vestereng.longitude;
-                    latitude = vestereng.latitude;
-                    intent = new Intent(this, SheltersInfo.class);
-                    intent.putExtra("longitude", Double.toString(longitude));
-                    intent.putExtra("latitude",Double.toString(latitude));
-                    break;
-                case 7:
-                    longitude = moesgaardSkov.longitude;
-                    latitude = moesgaardSkov.latitude;
-                    intent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
-                    break;
-                case 8:
-                    longitude = hoerhaven.longitude;
-                    latitude = hoerhaven.latitude;
-                    intent = new Intent(this, SheltersInfo.class);
-                    intent.putExtra("longitude", Double.toString(longitude));
-                    intent.putExtra("latitude",Double.toString(latitude));
-                    break;
-                case 9:
-                    longitude = vilhelmsborg.longitude;
-                    latitude = vilhelmsborg.latitude;
-                    intent = new Intent(this, SheltersInfo.class);
-                    intent.putExtra("longitude", Double.toString(longitude));
-                    intent.putExtra("latitude",Double.toString(latitude));
-                    break;
-                case 10:
-                    longitude = brendstrup.longitude;
-                    latitude = brendstrup.latitude;
-                    intent = new Intent(this, SheltersInfo.class);
-                    intent.putExtra("longitude", Double.toString(longitude));
-                    intent.putExtra("latitude",Double.toString(latitude));
-                    break;
-                case 11:
-                    longitude = skjoldhoejkilenAlfa.longitude;
-                    latitude = skjoldhoejkilenAlfa.latitude;
-                    intent = new Intent(this, SheltersInfo.class);
-                    intent.putExtra("longitude", Double.toString(longitude));
-                    intent.putExtra("latitude",Double.toString(latitude));
-                    break;
-                case 12:
-                    longitude = skjoldhoejkilenGamma.longitude;
-                    latitude = skjoldhoejkilenGamma.latitude;
-                    intent = new Intent(this, SheltersInfo.class);
-                    intent.putExtra("longitude", Double.toString(longitude));
-                    intent.putExtra("latitude",Double.toString(latitude));
-                    break;
-                case 13:
-                    longitude = skjoldhoejkilenDelta.longitude;
-                    latitude = skjoldhoejkilenDelta.latitude;
-                    intent = new Intent(this, SheltersInfo.class);
-                    intent.putExtra("longitude", Double.toString(longitude));
-                    intent.putExtra("latitude",Double.toString(latitude));
-                    break;
-                case 14:
-                    longitude = skjoldhoejkilenEpsilon.longitude;
-                    latitude = skjoldhoejkilenEpsilon.latitude;
-                    intent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
-                    break;
-                case 15:
-                    longitude = egaa.longitude;
-                    latitude = egaa.latitude;
-                    intent = new Intent(this, SheltersInfo.class);
-                    intent.putExtra("longitude", Double.toString(longitude));
-                    intent.putExtra("latitude",Double.toString(latitude));
-                    break;
-                case 16:
-                    longitude = lisbjergNySkov.longitude;
-                    latitude = lisbjergNySkov.latitude;
-                    intent = new Intent(this, SheltersInfo.class);
-                    intent.putExtra("longitude", Double.toString(longitude));
-                    intent.putExtra("latitude",Double.toString(latitude));
-                    break;
-            }
-            intent.putExtra("userLatitude", Double.toString(userlocation.getLatitude()));
-            intent.putExtra("userLongitude", Double.toString(userlocation.getLongitude()));
-            startActivity(intent);
+        switch (Integer.valueOf(marker.getId().replace("m",""))){
+            case 0:
+                longitude = gjellerup.longitude;
+                latitude = gjellerup.latitude;
+                intent = new Intent(this, SheltersInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
+                startActivity(intent);
+                break;
+            case 1:
+                longitude = hoerhavenSkoven.longitude;
+                latitude = hoerhavenSkoven.latitude;
+                intent = new Intent(this, SheltersInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
+                startActivity(intent);
+                break;
+            case 2:
+                longitude = lisbjerg.longitude;
+                latitude = lisbjerg.latitude;
+                intent = new Intent(this, SheltersInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
+                startActivity(intent);
+                break;
+            case 3:
+                longitude = moesgaardStrand.longitude;
+                latitude = moesgaardStrand.latitude;
+                intent = new Intent(this, SheltersInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
+                startActivity(intent);
+                break;
+            case 4:
+                longitude = mollerup.longitude;
+                latitude = mollerup.latitude;
+                intent = new Intent(this, SheltersInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
+                startActivity(intent);
+                break;
+            case 5:
+                longitude = hoerhavenBakken.longitude;
+                latitude = hoerhavenBakken.latitude;
+                intent = new Intent(this, SheltersInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
+                startActivity(intent);
+                break;
+            case 6:
+                longitude = vestereng.longitude;
+                latitude = vestereng.latitude;
+                intent = new Intent(this, SheltersInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
+                startActivity(intent);
+                break;
+            case 7:
+                longitude = moesgaardSkov.longitude;
+                latitude = moesgaardSkov.latitude;
+                intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                startActivity(intent);
+                break;
+            case 8:
+                longitude = hoerhaven.longitude;
+                latitude = hoerhaven.latitude;
+                intent = new Intent(this, SheltersInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
+                startActivity(intent);
+                break;
+            case 9:
+                longitude = vilhelmsborg.longitude;
+                latitude = vilhelmsborg.latitude;
+                intent = new Intent(this, SheltersInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
+                startActivity(intent);
+                break;
+            case 10:
+                longitude = brendstrup.longitude;
+                latitude = brendstrup.latitude;
+                intent = new Intent(this, SheltersInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
+                startActivity(intent);
+                break;
+            case 11:
+                longitude = skjoldhoejkilenAlfa.longitude;
+                latitude = skjoldhoejkilenAlfa.latitude;
+                intent = new Intent(this, SheltersInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
+                startActivity(intent);
+                break;
+            case 12:
+                longitude = skjoldhoejkilenGamma.longitude;
+                latitude = skjoldhoejkilenGamma.latitude;
+                intent = new Intent(this, SheltersInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
+                startActivity(intent);
+                break;
+            case 13:
+                longitude = skjoldhoejkilenDelta.longitude;
+                latitude = skjoldhoejkilenDelta.latitude;
+                intent = new Intent(this, SheltersInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
+                startActivity(intent);
+                break;
+            case 14:
+                longitude = skjoldhoejkilenEpsilon.longitude;
+                latitude = skjoldhoejkilenEpsilon.latitude;
+                intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                startActivity(intent);
+                break;
+            case 15:
+                longitude = egaa.longitude;
+                latitude = egaa.latitude;
+                intent = new Intent(this, SheltersInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
+                startActivity(intent);
+                break;
+            case 16:
+                longitude = lisbjergNySkov.longitude;
+                latitude = lisbjergNySkov.latitude;
+                intent = new Intent(this, SheltersInfo.class);
+                intent.putExtra("longitude", Double.toString(longitude));
+                intent.putExtra("latitude",Double.toString(latitude));
+                startActivity(intent);
+                break;
+        }
         }catch (NullPointerException e){
-            Toast.makeText(this, "Tænd din GPS og vent på signal", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Tænd for GPS for at benytte rutevejledning", Toast.LENGTH_LONG).show();
         }
     }
 }

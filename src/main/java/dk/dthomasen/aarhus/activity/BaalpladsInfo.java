@@ -80,9 +80,19 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener{
         ImageCard imageCard = new ImageCard(this, "Billeder", baalplads.getBillede1(), baalplads.getBillede2(), baalplads.getBillede3(), baalplads.getBillede4());
 
         mCardView.addCard(nameCard);
-        mCardView.addCard(imageCard);
-        mCardView.addCard(descCard);
-        mCardView.addCard(praktiskCard);
+
+        if(baalplads.getBillede1() != ""){
+            mCardView.addCard(imageCard);
+        }
+
+        if(baalplads.getBeskrivelse() != ""){
+            mCardView.addCard(descCard);
+        }
+
+        if(baalplads.getPraktisk() != ""){
+            mCardView.addCard(praktiskCard);
+        }
+
         mCardView.refresh();
     }
 
@@ -221,11 +231,11 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener{
             intent.putExtra("url",baalplads.getBillede2());
             startActivity(intent);
         }else if(v.getId() == R.id.cardImage3){
-                intent.putExtra("url",baalplads.getBillede3());
-                startActivity(intent);
+            intent.putExtra("url",baalplads.getBillede3());
+            startActivity(intent);
         }else if(v.getId() == R.id.cardImage4){
-                intent.putExtra("url",baalplads.getBillede4());
-                startActivity(intent);
+            intent.putExtra("url",baalplads.getBillede4());
+            startActivity(intent);
         }else if(v.getId() == R.id.ABNavigateButton){
             try{
                 intent = new Intent(Intent.ACTION_VIEW,

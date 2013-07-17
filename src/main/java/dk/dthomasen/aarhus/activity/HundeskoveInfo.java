@@ -3,9 +3,6 @@ package dk.dthomasen.aarhus.activity;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -26,15 +23,15 @@ import java.io.InputStream;
 
 import dk.dthomasen.aarhus.R;
 import dk.dthomasen.aarhus.cards.DescCard;
-import dk.dthomasen.aarhus.cards.LargeImageCard;
+import dk.dthomasen.aarhus.cards.ImageCard;
 import dk.dthomasen.aarhus.cards.TitleCard;
-import dk.dthomasen.aarhus.models.Shelter;
+import dk.dthomasen.aarhus.models.Hundeskov;
 import dk.dthomasen.aarhus.service.Service;
 
-public class SheltersInfo extends Activity implements View.OnClickListener, LocationListener {
+public class HundeskoveInfo extends Activity implements View.OnClickListener{
     protected final String TAG = this.getClass().getName();
     private SlidingMenu slidingMenu;
-    private Shelter shelter;
+    private Hundeskov hundeskov;
     private String latitudeToFind;
     private String longitudeToFind;
     private static final String ns = null;
@@ -42,14 +39,13 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
     private String userLongitude;
     private Service service = Service.getInstance();
     private CardUI mCardView;
-    private LocationManager locationManager;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sheltersinfo);
+        setContentView(R.layout.hundeskovinfo);
 
         slidingMenu = new SlidingMenu(this);
         slidingMenu.setMode(SlidingMenu.LEFT);
@@ -69,45 +65,33 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
 
         ((ImageButton)findViewById(R.id.ABNavigateButton)).setOnClickListener(this);
 
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if(locationManager != null)
-        {
-            boolean gpsIsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-
-            if(gpsIsEnabled)
-            {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 10F, this);
-            }
-        }
         userLatitude = intent.getExtras().getString("userLatitude");
         userLongitude = intent.getExtras().getString("userLongitude");
-        shelter = parseDocument("shelters.xml");
+        hundeskov = parseDocument("hundeskove.xml");
 
         // init CardView
-        mCardView = (CardUI) findViewById(R.id.shelterInfoCardsView);
+        mCardView = (CardUI) findViewById(R.id.hundeskovinfocardsview);
         mCardView.setSwipeable(false);
 
         // add AndroidViews Cards
-        TitleCard nameCard = new TitleCard(shelter.getNavn());
-        DescCard descCard = new DescCard("Beskrivelse", shelter.getBeskrivelse());
-        DescCard praktiskCard = new DescCard("Praktisk", shelter.getPraktisk());
-        DescCard vejledningCard = new DescCard("Vejledning", shelter.getVejledning());
-        LargeImageCard imageCard = new LargeImageCard(this, "Billeder", shelter.getBillede1(), shelter.getBillede2(), shelter.getBillede3(), shelter.getBillede4(), shelter.getBillede5(), shelter.getBillede6());
+        TitleCard nameCard = new TitleCard(hundeskov.getNavn());
+        DescCard descCard = new DescCard("Beskrivelse", hundeskov.getBeskrivelse());
+        DescCard praktiskCard = new DescCard("Praktisk", hundeskov.getPraktisk());
+        ImageCard imageCard = new ImageCard(this, "Billeder", hundeskov.getBillede1(), hundeskov.getBillede2(), hundeskov.getBillede3(), hundeskov.getBillede4());
 
         mCardView.addCard(nameCard);
-
-        if(shelter.getBillede1() != ""){
+        if(hundeskov.getBillede1() != ""){
             mCardView.addCard(imageCard);
         }
-        if(shelter.getBeskrivelse() != ""){
+
+        if(hundeskov.getBeskrivelse() != ""){
             mCardView.addCard(descCard);
         }
-        if(shelter.getPraktisk() != ""){
+
+        if(hundeskov.getPraktisk() != ""){
             mCardView.addCard(praktiskCard);
         }
-        if(shelter.getVejledning() != ""){
-            mCardView.addCard(vejledningCard);
-        }
+
         mCardView.refresh();
     }
 
@@ -143,8 +127,8 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
         overridePendingTransition(0, 0);
     }
 
-    private Shelter parseDocument(String file){
-        Shelter shelter = new Shelter();
+    private Hundeskov parseDocument(String file){
+        Hundeskov hundeskov = new Hundeskov();
         XmlPullParserFactory pullParserFactory = null;
         XmlPullParser parser = null;
         try {
@@ -155,7 +139,7 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
             parser.setInput(in_s, null);
             parser.nextTag();
 
-            parser.require(XmlPullParser.START_TAG, ns, "shelters");
+            parser.require(XmlPullParser.START_TAG, ns, "hundeskove");
 
             while(parser.next() != XmlPullParser.END_DOCUMENT){
                 if(parser.getEventType() != XmlPullParser.START_TAG){
@@ -163,13 +147,13 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
                 }
 
                 String name = parser.getName();
-                if(name.equals("shelter")){
-                    shelter = parseShelter(parser);
+                if(name.equals("hundeskov")){
+                    hundeskov = parseHundeskov(parser);
                 }else{
                     service.skip(parser);
                 }
-                if(shelter.getLatitude().equals(latitudeToFind) && shelter.getLongitude().equals(longitudeToFind)){
-                    return shelter;
+                if(hundeskov.getLatitude().equals(latitudeToFind) && hundeskov.getLongitude().equals(longitudeToFind)){
+                    return hundeskov;
                 }
             }
         } catch (XmlPullParserException e) {
@@ -178,13 +162,13 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
             e.printStackTrace();
         }
 
-        return shelter;
+        return hundeskov;
     }
 
-    private Shelter parseShelter(XmlPullParser parser) throws IOException, XmlPullParserException {
-        parser.require(XmlPullParser.START_TAG, ns, "shelter");
+    private Hundeskov parseHundeskov(XmlPullParser parser) throws IOException, XmlPullParserException {
+        parser.require(XmlPullParser.START_TAG, ns, "hundeskov");
 
-        Shelter currentShelter = new Shelter();
+        Hundeskov currentHundeskov = new Hundeskov();
         while(parser.next() != XmlPullParser.END_TAG){
             if(parser.getEventType() != XmlPullParser.START_TAG){
                 continue;
@@ -193,27 +177,25 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
             String name = parser.getName();
 
             if(name.equals("navn")){
-                currentShelter.setNavn(service.readText(parser));
+                currentHundeskov.setNavn(service.readText(parser));
             }else if(name.equals("beskrivelse")){
-                currentShelter.setBeskrivelse(service.readText(parser));
+                currentHundeskov.setBeskrivelse(service.readText(parser));
             }else if(name.equals("praktisk")){
-                currentShelter.setPraktisk(service.readText(parser));
-            }else if(name.equals("vejledning")){
-                currentShelter.setVejledning(service.readText(parser));
+                currentHundeskov.setPraktisk(service.readText(parser));
             }else if(name.equals("latitude")){
-                currentShelter.setLatitude(service.readText(parser));
+                currentHundeskov.setLatitude(service.readText(parser));
             }else if(name.equals("longitude")){
-                currentShelter.setLongitude(service.readText(parser));
+                currentHundeskov.setLongitude(service.readText(parser));
             }else if(name.equals("billeder")){
-                currentShelter = parseBilleder(parser, currentShelter);
+                currentHundeskov = parseBilleder(parser, currentHundeskov);
             }else{
                 service.skip(parser);
             }
         }
-        return currentShelter;
+        return currentHundeskov;
     }
 
-    private Shelter parseBilleder(XmlPullParser parser, Shelter currentShelter) throws IOException, XmlPullParserException {
+    private Hundeskov parseBilleder(XmlPullParser parser, Hundeskov currentHundeskov) throws IOException, XmlPullParserException {
 
         parser.require(XmlPullParser.START_TAG, ns, "billeder");
         while(parser.next() != XmlPullParser.END_TAG){
@@ -223,74 +205,44 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
             String name = parser.getName();
 
             if(name.equals("billede")){
-                if(currentShelter.getBillede1().equals("")){
-                    currentShelter.setBillede1(service.readText(parser));
-                }else if(currentShelter.getBillede2().equals("")){
-                    currentShelter.setBillede2(service.readText(parser));
-                }else if(currentShelter.getBillede3().equals("")){
-                    currentShelter.setBillede3(service.readText(parser));
-                }else if(currentShelter.getBillede4().equals("")){
-                    currentShelter.setBillede4(service.readText(parser));
-                }else if(currentShelter.getBillede5().equals("")){
-                    currentShelter.setBillede5(service.readText(parser));
-                }else if(currentShelter.getBillede6().equals("")){
-                    currentShelter.setBillede6(service.readText(parser));
+                if(currentHundeskov.getBillede1().equals("")){
+                    currentHundeskov.setBillede1(service.readText(parser));
+                }else if(currentHundeskov.getBillede2().equals("")){
+                    currentHundeskov.setBillede2(service.readText(parser));
+                }else if(currentHundeskov.getBillede3().equals("")){
+                    currentHundeskov.setBillede3(service.readText(parser));
+                }else if(currentHundeskov.getBillede4().equals("")){
+                    currentHundeskov.setBillede4(service.readText(parser));
                 }
             }
         }
 
-        return currentShelter;
+        return currentHundeskov;
     }
 
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(this, TouchImageViewActivity.class);
         if(v.getId() == R.id.cardImage1){
-            intent.putExtra("url", shelter.getBillede1());
+            intent.putExtra("url",hundeskov.getBillede1());
             startActivity(intent);
         }else if(v.getId() == R.id.cardImage2){
-            intent.putExtra("url", shelter.getBillede2());
+            intent.putExtra("url",hundeskov.getBillede2());
             startActivity(intent);
         }else if(v.getId() == R.id.cardImage3){
-            intent.putExtra("url", shelter.getBillede3());
-            startActivity(intent);
+                intent.putExtra("url",hundeskov.getBillede3());
+                startActivity(intent);
         }else if(v.getId() == R.id.cardImage4){
-            intent.putExtra("url", shelter.getBillede4());
-            startActivity(intent);
-        }else if(v.getId() == R.id.cardImage5){
-            intent.putExtra("url", shelter.getBillede5());
-            startActivity(intent);
-        }else if(v.getId() == R.id.cardImage6){
-            intent.putExtra("url", shelter.getBillede6());
-            startActivity(intent);
+                intent.putExtra("url",hundeskov.getBillede4());
+                startActivity(intent);
         }else if(v.getId() == R.id.ABNavigateButton){
-            Location userlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             try{
                 intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitudeToFind + "," + longitudeToFind + "&dirflg=w"));
+                        Uri.parse("http://maps.google.com/maps?saddr=" + userLatitude + "," + userLongitude + "&daddr=" + latitudeToFind + "," + longitudeToFind + "&dirflg=w"));
                 startActivity(intent);
             }catch(NullPointerException e){
-                Toast.makeText(this, "Tænd for GPS for at benytte rutevejledning", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Tænd for GPS eller Placeringsdeling for at benytte rutevejledning", Toast.LENGTH_LONG).show();
             }
         }
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
     }
 }

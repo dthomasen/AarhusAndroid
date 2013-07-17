@@ -39,6 +39,7 @@
         <activity android:name=".activity.BaalpladsInfo"/>
         <activity android:name=".activity.SheltersInfo"/>
         <activity android:name=".activity.FitnessInfo"/>
+        <activity android:name=".activity.HundeskoveInfo"/>
         <activity android:name=".activity.TouchImageViewActivity"/>
 
 

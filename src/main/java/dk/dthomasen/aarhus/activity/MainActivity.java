@@ -31,6 +31,7 @@ import dk.dthomasen.aarhus.cards.NowWeatherCard;
 import dk.dthomasen.aarhus.cards.SunCard;
 import dk.dthomasen.aarhus.service.BaalXmlDownload;
 import dk.dthomasen.aarhus.service.FitnessXmlDownload;
+import dk.dthomasen.aarhus.service.HundeskovXmlDownload;
 import dk.dthomasen.aarhus.service.Service;
 import dk.dthomasen.aarhus.service.ShelterXmlDownload;
 import dk.dthomasen.aarhus.weather.Weather;
@@ -119,6 +120,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             new BaalXmlDownload().execute(this);
             new ShelterXmlDownload().execute(this);
             new FitnessXmlDownload().execute(this);
+            new HundeskovXmlDownload().execute(this);
         }
         else {
             //Checking baalsteder update
@@ -149,6 +151,16 @@ public class MainActivity extends Activity implements View.OnClickListener{
             diff = Service.getInstance().getDateDiff(lastModDate, today, TimeUnit.DAYS);
             if(diff <= Long.valueOf(fitnessUpdateFreq)){
                 new FitnessXmlDownload().execute(this);
+            }
+
+            //Checking hundeskov update
+            file = new File(getFilesDir().getAbsolutePath()+"/hundeskove.xml");
+            lastModDate = new Date(file.lastModified());
+            today = new Date();
+            String hundeskoveUpdateFreq = sharedPreferences.getString("hundeskove","30");
+            diff = Service.getInstance().getDateDiff(lastModDate, today, TimeUnit.DAYS);
+            if(diff <= Long.valueOf(hundeskoveUpdateFreq)){
+                new HundeskovXmlDownload().execute(this);
             }
         }
 
