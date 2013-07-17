@@ -121,6 +121,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
             new ShelterXmlDownload().execute(this);
             new FitnessXmlDownload().execute(this);
             new HundeskovXmlDownload().execute(this);
+
+            ChangeLogDialog ChangelogDialog = new ChangeLogDialog(this);
+            ChangelogDialog.show();
         }
         else {
             //Checking baalsteder update
