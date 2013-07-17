@@ -78,12 +78,12 @@ public class Hundeskove extends Activity implements LocationListener, LocationSo
             if(gpsIsEnabled)
             {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 10F, this);
-                Toast.makeText(this, "Finder din placering via GPS \nVent venligst...", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Finder din placering via GPS", Toast.LENGTH_LONG).show();
             }
             else if(networkIsEnabled)
             {
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000L, 10F, this);
-                Toast.makeText(this, "Finder din placering via netværks udbyder. \nVent venligst...", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Finder din placering via netværks udbyder.", Toast.LENGTH_LONG).show();
             }
             else
             {
@@ -272,6 +272,7 @@ public class Hundeskove extends Activity implements LocationListener, LocationSo
                     intent = new Intent(this, HundeskoveInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 1:
                     longitude = vestereng.longitude;
@@ -279,6 +280,7 @@ public class Hundeskove extends Activity implements LocationListener, LocationSo
                     intent = new Intent(this, HundeskoveInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 2:
                     longitude = riisSkov.longitude;
@@ -286,6 +288,7 @@ public class Hundeskove extends Activity implements LocationListener, LocationSo
                     intent = new Intent(this, HundeskoveInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 3:
                     longitude = aarslevSkov.longitude;
@@ -293,6 +296,7 @@ public class Hundeskove extends Activity implements LocationListener, LocationSo
                     intent = new Intent(this, HundeskoveInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 4:
                     longitude = havreballeSkov.longitude;
@@ -300,6 +304,7 @@ public class Hundeskove extends Activity implements LocationListener, LocationSo
                     intent = new Intent(this, HundeskoveInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 5:
                     longitude = moesgaardSkov.longitude;
@@ -307,6 +312,7 @@ public class Hundeskove extends Activity implements LocationListener, LocationSo
                     intent = new Intent(this, HundeskoveInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 6:
                     longitude = tranbjergGroenloekkepark.longitude;
@@ -314,6 +320,7 @@ public class Hundeskove extends Activity implements LocationListener, LocationSo
                     intent = new Intent(this, HundeskoveInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 7:
                     longitude = skoedstrupSkov.longitude;
@@ -321,6 +328,7 @@ public class Hundeskove extends Activity implements LocationListener, LocationSo
                     intent = new Intent(this, HundeskoveInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 8:
                     longitude = lystrupSkov.longitude;
@@ -328,37 +336,39 @@ public class Hundeskove extends Activity implements LocationListener, LocationSo
                     intent = new Intent(this, HundeskoveInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 9:
                     longitude = baermoseSkov.longitude;
                     latitude = baermoseSkov.latitude;
                     intent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                    startActivity(intent);
                     break;
                 case 10:
                     longitude = trueSkovBlankhoej.longitude;
                     latitude = trueSkovBlankhoej.latitude;
                     intent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                    startActivity(intent);
                     break;
                 case 11:
                     longitude = trueSkovSkjoldhoejvej.longitude;
                     latitude = trueSkovSkjoldhoejvej.latitude;
                     intent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                    startActivity(intent);
                     break;
                 case 12:
                     longitude = solbjergHundeskov.longitude;
                     latitude = solbjergHundeskov.latitude;
                     intent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                    startActivity(intent);
                     break;
             }
-            intent.putExtra("userLatitude", Double.toString(userlocation.getLatitude()));
-            intent.putExtra("userLongitude", Double.toString(userlocation.getLongitude()));
-            startActivity(intent);
         }catch (NullPointerException e){
-            Toast.makeText(this, "Tænd din GPS og vent på signal", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Tænd for GPS for at benytte rutevejledning", Toast.LENGTH_LONG).show();
         }
     }
 }

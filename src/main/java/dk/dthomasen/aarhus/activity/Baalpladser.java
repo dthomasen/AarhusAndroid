@@ -82,12 +82,12 @@ public class Baalpladser extends Activity implements LocationListener, LocationS
             if(gpsIsEnabled)
             {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 10F, this);
-                Toast.makeText(this, "Finder din placering via GPS \nVent venligst...", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Finder din placering via GPS", Toast.LENGTH_LONG).show();
             }
             else if(networkIsEnabled)
             {
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000L, 10F, this);
-                Toast.makeText(this, "Finder din placering via netværks udbyder. \nVent venligst...", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Finder din placering via netværks udbyder.", Toast.LENGTH_LONG).show();
             }
             else
             {
@@ -284,135 +284,149 @@ public class Baalpladser extends Activity implements LocationListener, LocationS
         Double longitude = 0.0;
         Double latitude = 0.0;
         try{
-        switch (Integer.valueOf(marker.getId().replace("m",""))){
-            case 0:
-                longitude = havreballe.longitude;
-                latitude = havreballe.latitude;
-                intent = new Intent(this, BaalpladsInfo.class);
-                intent.putExtra("longitude", Double.toString(longitude));
-                intent.putExtra("latitude",Double.toString(latitude));
-                break;
-            case 1:
-                longitude = lystrupSoenderskov.longitude;
-                latitude = lystrupSoenderskov.latitude;
-                intent = new Intent(this, BaalpladsInfo.class);
-                intent.putExtra("longitude", Double.toString(longitude));
-                intent.putExtra("latitude", Double.toString(latitude));
-                break;
-            case 2:
-                longitude = tranbjergSkov.longitude;
-                latitude = tranbjergSkov.latitude;
-                intent = new Intent(this, BaalpladsInfo.class);
-                intent.putExtra("longitude", Double.toString(longitude));
-                intent.putExtra("latitude", Double.toString(latitude));
-                break;
-            case 3:
-                longitude = ndrStrandmark.longitude;
-                latitude = ndrStrandmark.latitude;
-                intent = new Intent(this, BaalpladsInfo.class);
-                intent.putExtra("longitude", Double.toString(longitude));
-                intent.putExtra("latitude", Double.toString(latitude));
-                break;
-            case 4:
-                longitude = sdrStrandmark.longitude;
-                latitude = sdrStrandmark.latitude;
-                intent = new Intent(this, BaalpladsInfo.class);
-                intent.putExtra("longitude", Double.toString(longitude));
-                intent.putExtra("latitude", Double.toString(latitude));
-                break;
-            case 5:
-                longitude = ballehage.longitude;
-                latitude = ballehage.latitude;
-                intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
-                break;
-            case 6:
-                longitude = floejstrupSyd.longitude;
-                latitude = floejstrupSyd.latitude;
-                intent = new Intent(this, BaalpladsInfo.class);
-                intent.putExtra("longitude", Double.toString(longitude));
-                intent.putExtra("latitude", Double.toString(latitude));
-                break;
-            case 7:
-                longitude = mariendalStrand.longitude;
-                latitude = mariendalStrand.latitude;
-                intent = new Intent(this, BaalpladsInfo.class);
-                intent.putExtra("longitude", Double.toString(longitude));
-                intent.putExtra("latitude", Double.toString(latitude));
-                break;
-            case 8:
-                longitude = warming.longitude;
-                latitude = warming.latitude;
-                intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
-                break;
-            case 9:
-                longitude = blommehaven.longitude;
-                latitude = blommehaven.latitude;
-                intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
-                break;
-            case 10:
-                longitude = floejstrupNord.longitude;
-                latitude = floejstrupNord.latitude;
-                intent = new Intent(this, BaalpladsInfo.class);
-                intent.putExtra("longitude", Double.toString(longitude));
-                intent.putExtra("latitude", Double.toString(latitude));
-                break;
-            case 11:
-                longitude = riisSkov.longitude;
-                latitude = riisSkov.latitude;
-                intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
-
-                break;
-            case 12:
-                longitude = dausRiisSkov.longitude;
-                latitude = dausRiisSkov.latitude;
-                intent = new Intent(this, BaalpladsInfo.class);
-                intent.putExtra("longitude", Double.toString(longitude));
-                intent.putExtra("latitude", Double.toString(latitude));
-                break;
-            case 13:
-                longitude = digevejen.longitude;
-                latitude = digevejen.latitude;
-                intent = new Intent(this, BaalpladsInfo.class);
-                intent.putExtra("longitude", Double.toString(longitude));
-                intent.putExtra("latitude", Double.toString(latitude));
-                break;
-            case 14:
-                longitude = skoedstrup.longitude;
-                latitude = skoedstrup.latitude;
-                intent = new Intent(this, BaalpladsInfo.class);
-                intent.putExtra("longitude", Double.toString(longitude));
-                intent.putExtra("latitude", Double.toString(latitude));
-                break;
-            case 15:
-                longitude = skjoeldhoejkilen.longitude;
-                latitude = skjoeldhoejkilen.latitude;
-                intent = new Intent(this, BaalpladsInfo.class);
-                intent.putExtra("longitude", Double.toString(longitude));
-                intent.putExtra("latitude", Double.toString(latitude));
-                break;
-            case 16:
-                longitude = praestevangen.longitude;
-                latitude = praestevangen.latitude;
-                intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
-                break;
-            case 17:
-                longitude = oernereden.longitude;
-                latitude = oernereden.latitude;
-                intent = new Intent(this, BaalpladsInfo.class);
-                intent.putExtra("longitude", Double.toString(longitude));
-                intent.putExtra("latitude", Double.toString(latitude));
-                break;
-        }
-        intent.putExtra("userLatitude", Double.toString(userlocation.getLatitude()));
-        intent.putExtra("userLongitude", Double.toString(userlocation.getLongitude()));
-        startActivity(intent);
+            switch (Integer.valueOf(marker.getId().replace("m",""))){
+                case 0:
+                    longitude = havreballe.longitude;
+                    latitude = havreballe.latitude;
+                    intent = new Intent(this, BaalpladsInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude",Double.toString(latitude));
+                    startActivity(intent);
+                    break;
+                case 1:
+                    longitude = lystrupSoenderskov.longitude;
+                    latitude = lystrupSoenderskov.latitude;
+                    intent = new Intent(this, BaalpladsInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
+                    break;
+                case 2:
+                    longitude = tranbjergSkov.longitude;
+                    latitude = tranbjergSkov.latitude;
+                    intent = new Intent(this, BaalpladsInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
+                    break;
+                case 3:
+                    longitude = ndrStrandmark.longitude;
+                    latitude = ndrStrandmark.latitude;
+                    intent = new Intent(this, BaalpladsInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
+                    break;
+                case 4:
+                    longitude = sdrStrandmark.longitude;
+                    latitude = sdrStrandmark.latitude;
+                    intent = new Intent(this, BaalpladsInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
+                    break;
+                case 5:
+                    longitude = ballehage.longitude;
+                    latitude = ballehage.latitude;
+                    intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                    startActivity(intent);
+                    break;
+                case 6:
+                    longitude = floejstrupSyd.longitude;
+                    latitude = floejstrupSyd.latitude;
+                    intent = new Intent(this, BaalpladsInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
+                    break;
+                case 7:
+                    longitude = mariendalStrand.longitude;
+                    latitude = mariendalStrand.latitude;
+                    intent = new Intent(this, BaalpladsInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
+                    break;
+                case 8:
+                    longitude = warming.longitude;
+                    latitude = warming.latitude;
+                    intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                    startActivity(intent);
+                    break;
+                case 9:
+                    longitude = blommehaven.longitude;
+                    latitude = blommehaven.latitude;
+                    intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                    startActivity(intent);
+                    break;
+                case 10:
+                    longitude = floejstrupNord.longitude;
+                    latitude = floejstrupNord.latitude;
+                    intent = new Intent(this, BaalpladsInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
+                    break;
+                case 11:
+                    longitude = riisSkov.longitude;
+                    latitude = riisSkov.latitude;
+                    intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                    startActivity(intent);
+                    break;
+                case 12:
+                    longitude = dausRiisSkov.longitude;
+                    latitude = dausRiisSkov.latitude;
+                    intent = new Intent(this, BaalpladsInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
+                    break;
+                case 13:
+                    longitude = digevejen.longitude;
+                    latitude = digevejen.latitude;
+                    intent = new Intent(this, BaalpladsInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
+                    break;
+                case 14:
+                    longitude = skoedstrup.longitude;
+                    latitude = skoedstrup.latitude;
+                    intent = new Intent(this, BaalpladsInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
+                    break;
+                case 15:
+                    longitude = skjoeldhoejkilen.longitude;
+                    latitude = skjoeldhoejkilen.latitude;
+                    intent = new Intent(this, BaalpladsInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
+                    break;
+                case 16:
+                    longitude = praestevangen.longitude;
+                    latitude = praestevangen.latitude;
+                    intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                    startActivity(intent);
+                    break;
+                case 17:
+                    longitude = oernereden.longitude;
+                    latitude = oernereden.latitude;
+                    intent = new Intent(this, BaalpladsInfo.class);
+                    intent.putExtra("longitude", Double.toString(longitude));
+                    intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
+                    break;
+            }
         }catch (NullPointerException e){
-            Toast.makeText(this, "Tænd din GPS og vent på signal", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Tænd for GPS for at benytte rutevejledning", Toast.LENGTH_LONG).show();
         }
     }
 }

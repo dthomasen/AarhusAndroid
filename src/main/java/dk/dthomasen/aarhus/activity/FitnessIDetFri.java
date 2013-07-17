@@ -258,6 +258,7 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
                     intent = new Intent(this, FitnessInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 1:
                     longitude = tangKrogen.longitude;
@@ -265,6 +266,7 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
                     intent = new Intent(this, FitnessInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 2:
                     longitude = mindeParken.longitude;
@@ -272,6 +274,7 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
                     intent = new Intent(this, FitnessInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 3:
                     longitude = skjoldhoejkilen.longitude;
@@ -279,6 +282,7 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
                     intent = new Intent(this, FitnessInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 4:
                     longitude = frederiksbjergBypark.longitude;
@@ -286,6 +290,7 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
                     intent = new Intent(this, FitnessInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 5:
                     longitude = gaasehaven.longitude;
@@ -293,6 +298,7 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
                     intent = new Intent(this, FitnessInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 6:
                     longitude = harlevBypark.longitude;
@@ -300,6 +306,7 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
                     intent = new Intent(this, FitnessInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 7:
                     longitude = brabrandstien.longitude;
@@ -307,12 +314,14 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
                     intent = new Intent(this, FitnessInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
                 case 8:
                     longitude = egelund.longitude;
                     latitude = egelund.latitude;
                     intent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitude + "," + longitude + "&dirflg=w"));
+                    startActivity(intent);
                     break;
                 case 9:
                     longitude = lyseng.longitude;
@@ -320,13 +329,11 @@ public class FitnessIDetFri extends Activity implements LocationListener, Locati
                     intent = new Intent(this, FitnessInfo.class);
                     intent.putExtra("longitude", Double.toString(longitude));
                     intent.putExtra("latitude", Double.toString(latitude));
+                    startActivity(intent);
                     break;
             }
-            intent.putExtra("userLatitude", Double.toString(userlocation.getLatitude()));
-            intent.putExtra("userLongitude", Double.toString(userlocation.getLongitude()));
-            startActivity(intent);
         }catch (NullPointerException e){
-            Toast.makeText(this, "Tænd din GPS og vent på signal", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Tænd for GPS for at benytte rutevejledning", Toast.LENGTH_LONG).show();
         }
     }
 }

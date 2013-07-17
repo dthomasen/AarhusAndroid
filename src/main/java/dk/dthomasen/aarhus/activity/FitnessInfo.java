@@ -3,6 +3,9 @@ package dk.dthomasen.aarhus.activity;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -29,7 +32,7 @@ import dk.dthomasen.aarhus.models.Baalplads;
 import dk.dthomasen.aarhus.models.Fitness;
 import dk.dthomasen.aarhus.service.Service;
 
-public class FitnessInfo extends Activity implements View.OnClickListener{
+public class FitnessInfo extends Activity implements View.OnClickListener, LocationListener{
     protected final String TAG = this.getClass().getName();
     private SlidingMenu slidingMenu;
     private Fitness fitness;
@@ -40,6 +43,7 @@ public class FitnessInfo extends Activity implements View.OnClickListener{
     private String userLongitude;
     private Service service = Service.getInstance();
     private CardUI mCardView;
+    private LocationManager locationManager;
 
     /** Called when the activity is first created. */
     @Override
@@ -66,6 +70,16 @@ public class FitnessInfo extends Activity implements View.OnClickListener{
 
         ((ImageButton)findViewById(R.id.ABNavigateButton)).setOnClickListener(this);
 
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if(locationManager != null)
+        {
+            boolean gpsIsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+            if(gpsIsEnabled)
+            {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 10F, this);
+            }
+        }
         userLatitude = intent.getExtras().getString("userLatitude");
         userLongitude = intent.getExtras().getString("userLongitude");
         fitness = parseDocument("fitness.xml");
@@ -236,13 +250,34 @@ public class FitnessInfo extends Activity implements View.OnClickListener{
             intent.putExtra("url",fitness.getBillede4());
             startActivity(intent);
         }else if(v.getId() == R.id.ABNavigateButton){
+            Location userlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             try{
                 intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://maps.google.com/maps?saddr=" + userLatitude + "," + userLongitude + "&daddr=" + latitudeToFind + "," + longitudeToFind + "&dirflg=w"));
+                        Uri.parse("http://maps.google.com/maps?saddr=" + userlocation.getLatitude() + "," + userlocation.getLongitude() + "&daddr=" + latitudeToFind + "," + longitudeToFind + "&dirflg=w"));
                 startActivity(intent);
             }catch(NullPointerException e){
-                Toast.makeText(this, "Tænd for GPS eller Placeringsdeling for at benytte rutevejledning", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Tænd for GPS for at benytte rutevejledning", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }
