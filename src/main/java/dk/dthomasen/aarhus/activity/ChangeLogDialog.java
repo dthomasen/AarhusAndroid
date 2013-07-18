@@ -152,7 +152,8 @@ public class ChangeLogDialog {
         
         //Create webview and load html
         WebView _WebView = new WebView(fActivity);
-        _WebView.loadData(_HTML, "text/html", "utf-8");
+        _WebView.getSettings().setDefaultTextEncodingName("utf-8");
+        _WebView.loadDataWithBaseURL("",_HTML, "text/html", "utf-8","");
         AlertDialog.Builder builder = new AlertDialog.Builder(fActivity)
                 .setTitle(_Title)
                 .setView(_WebView)
