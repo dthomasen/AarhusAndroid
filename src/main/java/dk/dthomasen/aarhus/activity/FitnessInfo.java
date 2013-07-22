@@ -28,7 +28,6 @@ import dk.dthomasen.aarhus.R;
 import dk.dthomasen.aarhus.cards.DescCard;
 import dk.dthomasen.aarhus.cards.ImageCard;
 import dk.dthomasen.aarhus.cards.TitleCard;
-import dk.dthomasen.aarhus.models.Baalplads;
 import dk.dthomasen.aarhus.models.Fitness;
 import dk.dthomasen.aarhus.service.Service;
 
@@ -89,7 +88,7 @@ public class FitnessInfo extends Activity implements View.OnClickListener, Locat
         mCardView.setSwipeable(false);
 
         // add AndroidViews Cards
-        TitleCard nameCard = new TitleCard(fitness.getNavn());
+        TitleCard nameCard = new TitleCard(fitness.getNavn(), 0);
         DescCard descCard = new DescCard("Beskrivelse", fitness.getBeskrivelse());
         DescCard praktiskCard = new DescCard("Praktisk", fitness.getPraktisk());
         ImageCard imageCard = new ImageCard(this, "Billeder", fitness.getBillede1(), fitness.getBillede2(), fitness.getBillede3(), fitness.getBillede4());

@@ -68,6 +68,7 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
         ab.setDisplayShowCustomEnabled(true);
 
         ((ImageButton)findViewById(R.id.ABNavigateButton)).setOnClickListener(this);
+        ((ImageButton)findViewById(R.id.ABCommentsButton)).setOnClickListener(this);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if(locationManager != null)
@@ -83,18 +84,24 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
         userLongitude = intent.getExtras().getString("userLongitude");
         shelter = parseDocument("shelters.xml");
 
+        int shelterId = Service.getInstance().mapShelterNameToId(shelter.getNavn());
+
         // init CardView
         mCardView = (CardUI) findViewById(R.id.shelterInfoCardsView);
         mCardView.setSwipeable(false);
 
+        float avgRating = 0;
+
         // add AndroidViews Cards
-        TitleCard nameCard = new TitleCard(shelter.getNavn());
+        //TitleCard nameCard = new TitleCard(shelter.getNavn());
+        TitleCard statRateCard = new TitleCard(shelter.getNavn(), Service.getInstance().mapShelterNameToId(shelter.getNavn()));
         DescCard descCard = new DescCard("Beskrivelse", shelter.getBeskrivelse());
         DescCard praktiskCard = new DescCard("Praktisk", shelter.getPraktisk());
         DescCard vejledningCard = new DescCard("Vejledning", shelter.getVejledning());
         LargeImageCard imageCard = new LargeImageCard(this, "Billeder", shelter.getBillede1(), shelter.getBillede2(), shelter.getBillede3(), shelter.getBillede4(), shelter.getBillede5(), shelter.getBillede6());
 
-        mCardView.addCard(nameCard);
+        //mCardView.addCard(nameCard);
+        mCardView.addCard(statRateCard);
 
         if(shelter.getBillede1() != ""){
             mCardView.addCard(imageCard);
@@ -262,6 +269,10 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
             startActivity(intent);
         }else if(v.getId() == R.id.cardImage6){
             intent.putExtra("url", shelter.getBillede6());
+            startActivity(intent);
+        }else if(v.getId() == R.id.ABCommentsButton){
+            intent = new Intent(this, ShelterComments.class);
+            intent.putExtra("sheltername", Service.getInstance().mapShelterNameToId(shelter.getNavn()));
             startActivity(intent);
         }else if(v.getId() == R.id.ABNavigateButton){
             Location userlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);

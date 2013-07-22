@@ -104,8 +104,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         SharedPreferences sp = getSharedPreferences("version", Activity.MODE_PRIVATE);
         int versionCodeStored = sp.getInt("version",0);
-        ChangeLogDialog ChangelogDialog = new ChangeLogDialog(this);
-        ChangelogDialog.show();
+
         SharedPreferences runCheck = getSharedPreferences("hasRunBefore", 0);
         Boolean hasRun = runCheck.getBoolean("hasRun", false);
         if (!hasRun || versionCode != versionCodeStored) {
@@ -123,7 +122,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
             new FitnessXmlDownload().execute(this);
             new HundeskovXmlDownload().execute(this);
 
-
+            ChangeLogDialog ChangelogDialog = new ChangeLogDialog(this);
+            ChangelogDialog.show();
         }
         else {
             //Checking baalsteder update

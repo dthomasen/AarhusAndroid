@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
+    <release version="1.5.2" versioncode="9">
+        <change>Fixet fejl med ÆØÅ på bestemte telefoner</change>
+        <change>Optimeret data forbrug</change>
+        <change>On the fly download af billeder</change>
+    </release>
     <release version="1.5.1" versioncode="8">
         <change>Fixet fejl der gjorde at info sider ikke kunne åbnes ved ingen GPS signal</change>
         <change>Implementeret "Nyheder" popup ved første start af app'en</change>
         <change>Omskrevet GPS koden, hurtigere lokation</change>
         <change>App'en kan nu bruges (uden rutevejledning) med GPS slået fra</change>
-    </release>
-    <release version="1.5" versioncode="7">
-        <change>Info kort skjules hvis de ikke indeholder information</change>
-        <change>Hundeskove information tilføjet</change>
-        <change>Shelter information tilføjet</change>
-        <change>Fitness pladser information tilføjet</change>
-        <change>Indstilling til opdaterings interval tilføjet for alle nye informations sider</change>
     </release>
 </changelog>

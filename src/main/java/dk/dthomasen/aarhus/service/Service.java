@@ -9,13 +9,11 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +22,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import dk.dthomasen.aarhus.R;
+import dk.dthomasen.aarhus.models.ShelterRatings;
 
 
 public class Service {
@@ -190,6 +189,42 @@ public class Service {
         }
     }
 
+    public int mapShelterNameToId(String name){
+        if(name.equals("Shelter i Lisbjerg Gammel Skov")){
+            return 1;
+        }else if(name.equalsIgnoreCase("Shelterplads i Lisbjerg Ny Skov - Fem stk.")){
+            return 2;
+        }else if(name.equalsIgnoreCase("Shelterplads ved Egå Engsø - Fem stk.")){
+            return 3;
+        }else if(name.equalsIgnoreCase("Shelter i Mollerup Skov")){
+            return 4;
+        }else if(name.equalsIgnoreCase("Shelter på Vestereng")){
+            return 5;
+        }else if(name.equalsIgnoreCase("Shelter i Brendstrup Skov")){
+            return 6;
+        }else if(name.equalsIgnoreCase("Madpakkehus Delta i Skjoldhøjkilen")){
+            return 7;
+        }else if(name.equalsIgnoreCase("Madpakkehus Gamma i Skjoldhøjkilen")){
+            return 8;
+        }else if(name.equalsIgnoreCase("Madpakkehus Alfa i Skjoldhøjkilen")){
+            return 9;
+        }else if(name.equalsIgnoreCase("Shelter i Gjellerup Skov")){
+            return 10;
+        }else if(name.equalsIgnoreCase("Shelter i Hørhaven i skoven")){
+            return 11;
+        }else if(name.equalsIgnoreCase("Dagshelter i Hørhaven")){
+            return 12;
+        }else if(name.equalsIgnoreCase("Shelter i Hørhaven på Bakken")){
+            return 13;
+        }else if(name.equalsIgnoreCase("Shelter ved Moesgård Strand")){
+            return 14;
+        }else if(name.equalsIgnoreCase("Shelter i Vilhelmsborg Skov")){
+            return 15;
+        }else{
+            return 0;
+        }
+    }
+
     public String convert12To24Hour(String amhour){
         SimpleDateFormat displayFormat = new SimpleDateFormat("HH:mm");
         SimpleDateFormat parseFormat = new SimpleDateFormat("hh:mm a");
@@ -204,5 +239,14 @@ public class Service {
     public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
         long diffInMillies = date2.getTime() - date1.getTime();
         return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+    }
+
+    public float getAverageRating(ShelterRatings ratings){
+        int i;
+        float sum = 0;
+        for(i = 0; i<ratings.getShelterRatings().length; i++){
+            sum += Float.parseFloat(ratings.getShelterRatings()[i].getRating());
+        }
+        return sum/i;
     }
 }

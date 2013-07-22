@@ -14,4 +14,15 @@
         android:paddingRight="10dp"
         android:background="@null">
 </ImageButton>
+    <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:id="@+id/ABCommentsButton"
+                 android:layout_width="45dp"
+                 android:layout_height="35dp"
+                 android:scaleType="fitXY"
+                 android:src="@drawable/comments"
+                 android:layout_toLeftOf="@id/ABNavigateButton"
+                 android:layout_centerVertical="true"
+                 android:paddingRight="10dp"
+                 android:background="@null">
+    </ImageButton>
     </RelativeLayout>

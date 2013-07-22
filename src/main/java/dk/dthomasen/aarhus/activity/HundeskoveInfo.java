@@ -88,7 +88,8 @@ public class HundeskoveInfo extends Activity implements View.OnClickListener, Lo
         mCardView.setSwipeable(false);
 
         // add AndroidViews Cards
-        TitleCard nameCard = new TitleCard(hundeskov.getNavn());
+
+        TitleCard nameCard = new TitleCard(hundeskov.getNavn(), 0);
         DescCard descCard = new DescCard("Beskrivelse", hundeskov.getBeskrivelse());
         DescCard praktiskCard = new DescCard("Praktisk", hundeskov.getPraktisk());
         ImageCard imageCard = new ImageCard(this, "Billeder", hundeskov.getBillede1(), hundeskov.getBillede2(), hundeskov.getBillede3(), hundeskov.getBillede4());
