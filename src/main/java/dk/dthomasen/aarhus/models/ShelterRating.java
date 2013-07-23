@@ -1,10 +1,12 @@
 package dk.dthomasen.aarhus.models;
 
 public class ShelterRating {
+
     private String shelter_id;
     private String name;
     private String comment;
     private String rating;
+    private String dato;
 
     public String getName() {
         return name;
@@ -36,5 +38,24 @@ public class ShelterRating {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public String getDato() {
+        return dato;
+    }
+
+    public void setDato(String dato) {
+        this.dato = dato;
+    }
+
+    @Override
+    public String toString() {
+        return "ShelterRating{" +
+                "shelter_id='" + shelter_id + '\'' +
+                ", name='" + name + '\'' +
+                ", comment='" + comment + '\'' +
+                ", rating='" + rating + '\'' +
+                ", dato='" + dato + '\'' +
+                '}';
     }
 }

@@ -8,6 +8,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -82,6 +83,20 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
         }
         userLatitude = intent.getExtras().getString("userLatitude");
         userLongitude = intent.getExtras().getString("userLongitude");
+        populateCards();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if ( slidingMenu.isMenuShowing()) {
+            slidingMenu.toggle();
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
+    public void populateCards(){
         shelter = parseDocument("shelters.xml");
 
         int shelterId = Service.getInstance().mapShelterNameToId(shelter.getNavn());
@@ -89,7 +104,7 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
         // init CardView
         mCardView = (CardUI) findViewById(R.id.shelterInfoCardsView);
         mCardView.setSwipeable(false);
-
+        mCardView.clearCards();
         float avgRating = 0;
 
         // add AndroidViews Cards
@@ -117,17 +132,6 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
         }
         mCardView.refresh();
     }
-
-    @Override
-    public void onBackPressed() {
-        if ( slidingMenu.isMenuShowing()) {
-            slidingMenu.toggle();
-        }
-        else {
-            super.onBackPressed();
-        }
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ( keyCode == KeyEvent.KEYCODE_MENU ) {
@@ -148,6 +152,12 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
     protected void onPause() {
         super.onPause();
         overridePendingTransition(0, 0);
+    }
+
+    @Override
+    protected void onResume() {
+        populateCards();
+        super.onResume();
     }
 
     private Shelter parseDocument(String file){
@@ -271,7 +281,7 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
             intent.putExtra("url", shelter.getBillede6());
             startActivity(intent);
         }else if(v.getId() == R.id.ABCommentsButton){
-            intent = new Intent(this, ShelterComments.class);
+            intent = new Intent(this, SheltersComments.class);
             intent.putExtra("sheltername", Service.getInstance().mapShelterNameToId(shelter.getNavn()));
             startActivity(intent);
         }else if(v.getId() == R.id.ABNavigateButton){

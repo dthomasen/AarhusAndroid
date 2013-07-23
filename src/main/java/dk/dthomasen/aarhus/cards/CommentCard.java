@@ -15,12 +15,14 @@ public class CommentCard extends com.fima.cardsui.objects.Card {
     String commenterName = "";
     String comment = "";
     String rating = "0";
+    String dato = "";
 
-    public CommentCard(String commenterName, String rating, String comment){
+    public CommentCard(String commenterName, String rating, String comment, String dato){
         super(commenterName);
         this.commenterName = commenterName;
         this.comment = comment;
         this.rating = rating;
+        this.dato = dato;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class CommentCard extends com.fima.cardsui.objects.Card {
         ((TextView) view.findViewById(R.id.commenterName)).setText(commenterName);
         ((RatingBar) view.findViewById(R.id.staticRatingBar)).setRating(Float.parseFloat(rating));
         ((TextView) view.findViewById(R.id.CardComment)).setText(comment);
-
+        ((TextView) view.findViewById(R.id.commentDate)).setText(dato);
 
         return view;
     }

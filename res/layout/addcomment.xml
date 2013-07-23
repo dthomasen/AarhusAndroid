@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+              android:padding="10sp">
+
+    <EditText
+            android:id="@+id/Addcommenter_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Navn"
+            android:singleLine="true">
+
+        <requestFocus/>
+    </EditText>
+
+    <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/AddRatingBar"
+            android:layout_gravity="left|center_vertical"/>
+
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/stroke" />
+
+    <EditText
+            android:id="@+id/Addcomment_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:hint="Kommentar"
+            android:minLines="3"
+            >
+    </EditText>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <Button
+                android:id="@+id/btn_post_comment"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Send"/>
+
+        <Button
+                android:id="@+id/btn_cancel_comment"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/btn_post_comment"
+                android:text="Annuller"/>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
