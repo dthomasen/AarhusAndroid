@@ -25,7 +25,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import dk.dthomasen.aarhus.R;
+import dk.dthomasen.aarhus.cards.BaalstedTitleCard;
 import dk.dthomasen.aarhus.cards.DescCard;
+import dk.dthomasen.aarhus.cards.FitnessTitleCard;
 import dk.dthomasen.aarhus.cards.ImageCard;
 import dk.dthomasen.aarhus.cards.ShelterTitleCard;
 import dk.dthomasen.aarhus.models.Baalplads;
@@ -68,6 +70,7 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener, Loc
         ab.setDisplayShowCustomEnabled(true);
 
         ((ImageButton)findViewById(R.id.ABNavigateButton)).setOnClickListener(this);
+        findViewById(R.id.ABCommentsButton).setOnClickListener(this);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if(locationManager != null)
@@ -81,14 +84,20 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener, Loc
         }
         userLatitude = intent.getExtras().getString("userLatitude");
         userLongitude = intent.getExtras().getString("userLongitude");
+
+        populateCards();
+    }
+
+    public void populateCards(){
         baalplads = parseDocument("baalsteder.xml");
 
         // init CardView
         mCardView = (CardUI) findViewById(R.id.baalinfocardsview);
         mCardView.setSwipeable(false);
+        mCardView.clearCards();
 
         // add AndroidViews Cards
-        ShelterTitleCard nameCard = new ShelterTitleCard(baalplads.getNavn(), 0);
+        BaalstedTitleCard nameCard = new BaalstedTitleCard(baalplads.getNavn(), Service.getInstance().mapBaalstedNameToId(baalplads.getNavn()));
         DescCard descCard = new DescCard("Beskrivelse", baalplads.getBeskrivelse());
         DescCard praktiskCard = new DescCard("Praktisk", baalplads.getPraktisk());
         ImageCard imageCard = new ImageCard(this, "Billeder", baalplads.getBillede1(), baalplads.getBillede2(), baalplads.getBillede3(), baalplads.getBillede4());
@@ -109,6 +118,13 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener, Loc
 
         mCardView.refresh();
     }
+
+    @Override
+    protected void onResume() {
+        populateCards();
+        super.onResume();
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -250,6 +266,10 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener, Loc
         }else if(v.getId() == R.id.cardImage4){
             intent.putExtra("url",baalplads.getBillede4());
             startActivity(intent);
+        }else if(v.getId() == R.id.ABCommentsButton){
+                intent = new Intent(this, BaalstedsComments.class);
+                intent.putExtra("baalstedid", Service.getInstance().mapBaalstedNameToId(baalplads.getNavn()));
+                startActivity(intent);
         }else if(v.getId() == R.id.ABNavigateButton){
             Location userlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             try{

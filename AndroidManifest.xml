@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="dk.dthomasen.aarhus"
-          android:versionCode="9"
-          android:versionName="1.5.2">
+          android:versionCode="10"
+          android:versionName="1.6">
 
     <uses-sdk android:minSdkVersion="14"
               android:targetSdkVersion="17"/>
@@ -43,9 +43,11 @@
         <activity android:name=".activity.TouchImageViewActivity"/>
         <activity android:name=".activity.SheltersComments"/>
         <activity android:name=".activity.HundeskoveComments"/>
+        <activity android:name=".activity.FitnessComments"/>
+        <activity android:name=".activity.BaalstedsComments"/>
 
         <meta-data
                 android:name="com.google.android.maps.v2.API_KEY"
-                android:value="AIzaSyDRLDp8Vqc8koUJc_uTPpHBMxk9xmnsMdc" />
+                android:value="AIzaSyBXDwnuC5sUaJ8WirL0eatvTqcBj4E-Pcg" />
     </application>
 </manifest>

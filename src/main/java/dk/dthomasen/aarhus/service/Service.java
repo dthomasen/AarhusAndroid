@@ -22,6 +22,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import dk.dthomasen.aarhus.R;
+import dk.dthomasen.aarhus.models.BaalstedRatings;
+import dk.dthomasen.aarhus.models.FitnessRatings;
 import dk.dthomasen.aarhus.models.HundeskovRatings;
 import dk.dthomasen.aarhus.models.ShelterRatings;
 
@@ -30,10 +32,13 @@ public class Service {
     private static Service instance = null;
     ShelterRatings shelterRatingSaved;
     HundeskovRatings hundeskovRatingSaved;
+    FitnessRatings fitnessRatingsSaved;
+    BaalstedRatings baalstedRatingsSaved;
 
     protected Service() {
         // Exists only to defeat instantiation.
     }
+
     public static Service getInstance() {
         if(instance == null) {
             instance = new Service();
@@ -44,8 +49,7 @@ public class Service {
     public org.w3c.dom.Document convertStringToW3cDocument(String src){
         org.w3c.dom.Document dest = null;
 
-        DocumentBuilderFactory dbFactory =
-                DocumentBuilderFactory.newInstance();
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder parser;
 
         try {
@@ -253,6 +257,60 @@ public class Service {
         }
     }
 
+    public int mapFitnessNameToId(String name) {
+        if(name.equalsIgnoreCase("Fitnessplads Riis Skov")){
+            return 1;
+        }else if(name.equalsIgnoreCase("Fitnessplads Skjoldhøjkilen")){
+            return 2;
+        }else if(name.equalsIgnoreCase("Fitnessplads Harlev Bypark")){
+            return 3;
+        }else if(name.equalsIgnoreCase("Fitnessplads Brabrandstien")){
+            return 4;
+        }else if(name.equalsIgnoreCase("Fitnessplads Frederiksbjerg Bypark")){
+            return 5;
+        }else if(name.equalsIgnoreCase("Fitnessplads Tangkrogen")){
+            return 6;
+        }else if(name.equalsIgnoreCase("Fitnessplads Mindeparken")){
+            return 7;
+        }else if(name.equalsIgnoreCase("Fitnessplads Lyseng Idrætsanlæg")){
+            return 8;
+        }else if(name.equalsIgnoreCase("Fitnessplads Gåsehaven")){
+            return 9;
+        }else{
+            return 0;
+        }
+    }
+
+    public int mapBaalstedNameToId(String name) {
+        if(name.equalsIgnoreCase("Bålplads i Skødstrup skov")){
+            return 1;
+        }else if(name.equalsIgnoreCase("Bålhus i Lystrup Sønderskov")){
+            return 2;
+        }else if(name.equalsIgnoreCase("Bålplads på Tumlepladsen \"Daus\" i Riis Skov")){
+            return 3;
+        }else if(name.equalsIgnoreCase("Bålplads i Skjoldhøjkilen")){
+            return 4;
+        }else if(name.equalsIgnoreCase("Bålplads i Tranbjerg Skov")){
+            return 5;
+        }else if(name.equalsIgnoreCase("Bålplads ved Ørnereden")){
+            return 6;
+        }else if(name.equalsIgnoreCase("Bålplads ved Moesgård Strand - Ndr. Strandmark")){
+            return 7;
+        }else if(name.equalsIgnoreCase("Bålplads ved Moesgård Strand - Sdr. Strandmark")){
+            return 8;
+        }else if(name.equalsIgnoreCase("Bålplads i Fløjstrup skov - Nord")){
+            return 9;
+        }else if(name.equalsIgnoreCase("Bålplads ved Digevejen i Fløjstrup Skov")){
+            return 10;
+        }else if(name.equalsIgnoreCase("Bålplads i Fløjstrup Skov - Syd")){
+            return 11;
+        }else if(name.equalsIgnoreCase("Bålplads ved Mariendal Strand")){
+            return 12;
+        }else{
+            return 0;
+        }
+    }
+
     public String convert12To24Hour(String amhour){
         SimpleDateFormat displayFormat = new SimpleDateFormat("HH:mm");
         SimpleDateFormat parseFormat = new SimpleDateFormat("hh:mm a");
@@ -287,6 +345,24 @@ public class Service {
         return sum/i;
     }
 
+    public float getAverageFitnessRating(FitnessRatings ratings){
+        int i;
+        float sum = 0;
+        for(i = 0; i<ratings.getFitnessRatings().length; i++){
+            sum += Float.parseFloat(ratings.getFitnessRatings()[i].getRating());
+        }
+        return sum/i;
+    }
+
+    public float getAverageBaalstedRating(BaalstedRatings ratings){
+        int i;
+        float sum = 0;
+        for(i = 0; i<ratings.getBaalstedRatings().length; i++){
+            sum += Float.parseFloat(ratings.getBaalstedRatings()[i].getRating());
+        }
+        return sum/i;
+    }
+
     public void saveShelterRatings(ShelterRatings shelterRatingSaved){
         this.shelterRatingSaved = shelterRatingSaved;
     }
@@ -295,11 +371,27 @@ public class Service {
         this.hundeskovRatingSaved = hundeskovRatingSaved;
     }
 
+    public void saveFitnessRatings(FitnessRatings fitnessRatingsSaved){
+        this.fitnessRatingsSaved = fitnessRatingsSaved;
+    }
+
+    public void saveBaalstedRatings(BaalstedRatings baalstedRatingsSaved){
+        this.baalstedRatingsSaved = baalstedRatingsSaved;
+    }
+
     public ShelterRatings getSavedShelterRatings(){
         return shelterRatingSaved;
     }
 
     public HundeskovRatings getSavedHundeskovRatings(){
         return hundeskovRatingSaved;
+    }
+
+    public FitnessRatings getSavedFitnessRatings(){
+        return fitnessRatingsSaved;
+    }
+
+    public BaalstedRatings getSavedBaalstedRatings(){
+        return baalstedRatingsSaved;
     }
 }

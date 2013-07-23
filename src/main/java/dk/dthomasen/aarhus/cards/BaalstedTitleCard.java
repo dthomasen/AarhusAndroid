@@ -7,16 +7,15 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import dk.dthomasen.aarhus.R;
-import dk.dthomasen.aarhus.models.ShelterRatings;
-import dk.dthomasen.aarhus.service.ShelterRatingsDownload;
+import dk.dthomasen.aarhus.service.BaalstedRatingsDownload;
 
-public class ShelterTitleCard extends com.fima.cardsui.objects.Card {
+public class BaalstedTitleCard extends com.fima.cardsui.objects.Card {
 
-    int shelterId;
+    int baalstedId;
 
-    public ShelterTitleCard(String title, int shelterId){
+    public BaalstedTitleCard(String title, int baalstedId){
         super(title);
-        this.shelterId = shelterId;
+        this.baalstedId = baalstedId;
     }
 
     @Override
@@ -25,7 +24,7 @@ public class ShelterTitleCard extends com.fima.cardsui.objects.Card {
 
         ((TextView) view.findViewById(R.id.title)).setText(title);
 
-        new ShelterRatingsDownload((RatingBar) view.findViewById(R.id.staticRatingBar)).execute(1,shelterId);
+        new BaalstedRatingsDownload((RatingBar) view.findViewById(R.id.staticRatingBar)).execute(1, baalstedId);
         return view;
     }
 }

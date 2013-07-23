@@ -26,6 +26,7 @@ import java.io.InputStream;
 
 import dk.dthomasen.aarhus.R;
 import dk.dthomasen.aarhus.cards.DescCard;
+import dk.dthomasen.aarhus.cards.FitnessTitleCard;
 import dk.dthomasen.aarhus.cards.ImageCard;
 import dk.dthomasen.aarhus.cards.ShelterTitleCard;
 import dk.dthomasen.aarhus.models.Fitness;
@@ -68,6 +69,7 @@ public class FitnessInfo extends Activity implements View.OnClickListener, Locat
         ab.setDisplayShowCustomEnabled(true);
 
         ((ImageButton)findViewById(R.id.ABNavigateButton)).setOnClickListener(this);
+        findViewById(R.id.ABCommentsButton).setOnClickListener(this);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if(locationManager != null)
@@ -81,19 +83,25 @@ public class FitnessInfo extends Activity implements View.OnClickListener, Locat
         }
         userLatitude = intent.getExtras().getString("userLatitude");
         userLongitude = intent.getExtras().getString("userLongitude");
+
+        populateCards();
+    }
+
+    public void populateCards(){
         fitness = parseDocument("fitness.xml");
 
         // init CardView
         mCardView = (CardUI) findViewById(R.id.fitnessinfocardsview);
         mCardView.setSwipeable(false);
+        mCardView.clearCards();
 
         // add AndroidViews Cards
-        ShelterTitleCard nameCard = new ShelterTitleCard(fitness.getNavn(), 0);
+        FitnessTitleCard titleCard = new FitnessTitleCard(fitness.getNavn(), Service.getInstance().mapFitnessNameToId(fitness.getNavn()));
         DescCard descCard = new DescCard("Beskrivelse", fitness.getBeskrivelse());
         DescCard praktiskCard = new DescCard("Praktisk", fitness.getPraktisk());
         ImageCard imageCard = new ImageCard(this, "Billeder", fitness.getBillede1(), fitness.getBillede2(), fitness.getBillede3(), fitness.getBillede4());
 
-        mCardView.addCard(nameCard);
+        mCardView.addCard(titleCard);
 
         if(fitness.getBillede1() != ""){
             mCardView.addCard(imageCard);
@@ -107,6 +115,13 @@ public class FitnessInfo extends Activity implements View.OnClickListener, Locat
         }
         mCardView.refresh();
     }
+
+    @Override
+    protected void onResume() {
+        populateCards();
+        super.onResume();
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -247,6 +262,10 @@ public class FitnessInfo extends Activity implements View.OnClickListener, Locat
             startActivity(intent);
         }else if(v.getId() == R.id.cardImage4){
             intent.putExtra("url",fitness.getBillede4());
+            startActivity(intent);
+        }else if(v.getId() == R.id.ABCommentsButton){
+            intent = new Intent(this, FitnessComments.class);
+            intent.putExtra("fitnessid", Service.getInstance().mapFitnessNameToId(fitness.getNavn()));
             startActivity(intent);
         }else if(v.getId() == R.id.ABNavigateButton){
             Location userlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);

@@ -27,8 +27,6 @@ public class HundeskovTitleCard extends com.fima.cardsui.objects.Card {
 
         ((TextView) view.findViewById(R.id.title)).setText(title);
 
-        HundeskovRatings hundeskovRatings = new HundeskovRatings();
-
         new HundeskovRatingsDownload((RatingBar) view.findViewById(R.id.staticRatingBar)).execute(1, hundeskovId);
         return view;
     }
