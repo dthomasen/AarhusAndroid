@@ -21,19 +21,19 @@ import java.util.Date;
 
 import dk.dthomasen.aarhus.R;
 import dk.dthomasen.aarhus.cards.CommentCard;
-import dk.dthomasen.aarhus.models.ShelterRating;
-import dk.dthomasen.aarhus.models.ShelterRatings;
-import dk.dthomasen.aarhus.service.ShelterCommentUpload;
+import dk.dthomasen.aarhus.models.HundeskovRating;
+import dk.dthomasen.aarhus.models.HundeskovRatings;
+import dk.dthomasen.aarhus.service.HundeskovCommentUpload;
 import dk.dthomasen.aarhus.service.Service;
 
 /**
  * Created by Dennis on 04-07-13.
  */
-public class SheltersComments extends Activity implements View.OnClickListener{
+public class HundeskoveComments extends Activity implements View.OnClickListener{
     protected final String TAG = this.getClass().getName();
     private SlidingMenu slidingMenu;
     private Activity activity = this;
-    private int shelterId;
+    private int hundeskovId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class SheltersComments extends Activity implements View.OnClickListener{
         ab.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        shelterId = intent.getExtras().getInt("sheltername");
+        hundeskovId = intent.getExtras().getInt("hundeskovid");
         findViewById(R.id.ABAddComment).setOnClickListener(this);
 
         populateCards();
@@ -62,21 +62,21 @@ public class SheltersComments extends Activity implements View.OnClickListener{
 
     public void populateCards(){
 
-        ShelterRatings result = Service.getInstance().getSavedShelterRatings();
+        HundeskovRatings result = Service.getInstance().getSavedHundeskovRatings();
 
         CardUI cardUI = (CardUI) findViewById(R.id.commentsCardView);
 
-        if(result.getShelterRatings().length == 0){
+        if(result.getHundeskoveRatings().length == 0){
             AlertDialog.Builder noCommentsPopup = new AlertDialog.Builder(activity);
 
-            noCommentsPopup.setMessage("Der er endnu ingen kommentarer til dette shelter - Du kan blive den første!");
+            noCommentsPopup.setMessage("Der er endnu ingen kommentarer til denne hundeskov - Du kan blive den første!");
             noCommentsPopup.setTitle("Ingen kommentarer");
             noCommentsPopup.setPositiveButton("OK", null);
             noCommentsPopup.setCancelable(true);
             noCommentsPopup.create().show();
         }else{
             cardUI.clearCards();
-            for(ShelterRating rating : result.getShelterRatings()){
+            for(HundeskovRating rating : result.getHundeskoveRatings()){
                 cardUI.addCard(new CommentCard(rating.getName(), rating.getRating(), rating.getComment(), rating.getDato()));
                 cardUI.refresh();
             }
@@ -142,13 +142,13 @@ public class SheltersComments extends Activity implements View.OnClickListener{
 
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-                    ShelterRating comment = new ShelterRating();
-                    comment.setShelter_id(Integer.toString(shelterId));
+                    HundeskovRating comment = new HundeskovRating();
+                    comment.setHundeskov_id(Integer.toString(hundeskovId));
                     comment.setName(name.getText().toString());
                     comment.setComment(message.getText().toString());
                     comment.setRating(Float.toString(rating.getRating()));
                     comment.setDato(dateFormat.format(new Date()));
-                    new ShelterCommentUpload(activity, comment).execute(1);
+                    new HundeskovCommentUpload(activity, comment).execute(1);
 
                     dialog.dismiss();
                 }

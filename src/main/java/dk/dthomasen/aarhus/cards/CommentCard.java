@@ -1,15 +1,12 @@
 package dk.dthomasen.aarhus.cards;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import dk.dthomasen.aarhus.R;
-import dk.dthomasen.aarhus.models.ShelterRatings;
-import dk.dthomasen.aarhus.service.RatingsDownload;
 
 public class CommentCard extends com.fima.cardsui.objects.Card {
     String commenterName = "";

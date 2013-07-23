@@ -27,7 +27,7 @@ import java.io.InputStream;
 import dk.dthomasen.aarhus.R;
 import dk.dthomasen.aarhus.cards.DescCard;
 import dk.dthomasen.aarhus.cards.ImageCard;
-import dk.dthomasen.aarhus.cards.TitleCard;
+import dk.dthomasen.aarhus.cards.ShelterTitleCard;
 import dk.dthomasen.aarhus.models.Baalplads;
 import dk.dthomasen.aarhus.service.Service;
 
@@ -88,7 +88,7 @@ public class BaalpladsInfo extends Activity implements View.OnClickListener, Loc
         mCardView.setSwipeable(false);
 
         // add AndroidViews Cards
-        TitleCard nameCard = new TitleCard(baalplads.getNavn(), 0);
+        ShelterTitleCard nameCard = new ShelterTitleCard(baalplads.getNavn(), 0);
         DescCard descCard = new DescCard("Beskrivelse", baalplads.getBeskrivelse());
         DescCard praktiskCard = new DescCard("Praktisk", baalplads.getPraktisk());
         ImageCard imageCard = new ImageCard(this, "Billeder", baalplads.getBillede1(), baalplads.getBillede2(), baalplads.getBillede3(), baalplads.getBillede4());

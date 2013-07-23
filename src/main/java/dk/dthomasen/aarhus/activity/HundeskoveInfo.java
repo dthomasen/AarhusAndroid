@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.fima.cardsui.views.CardUI;
@@ -26,8 +25,9 @@ import java.io.InputStream;
 
 import dk.dthomasen.aarhus.R;
 import dk.dthomasen.aarhus.cards.DescCard;
+import dk.dthomasen.aarhus.cards.HundeskovTitleCard;
 import dk.dthomasen.aarhus.cards.ImageCard;
-import dk.dthomasen.aarhus.cards.TitleCard;
+import dk.dthomasen.aarhus.cards.ShelterTitleCard;
 import dk.dthomasen.aarhus.models.Hundeskov;
 import dk.dthomasen.aarhus.service.Service;
 
@@ -67,7 +67,8 @@ public class HundeskoveInfo extends Activity implements View.OnClickListener, Lo
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowCustomEnabled(true);
 
-        ((ImageButton)findViewById(R.id.ABNavigateButton)).setOnClickListener(this);
+        findViewById(R.id.ABNavigateButton).setOnClickListener(this);
+        findViewById(R.id.ABCommentsButton).setOnClickListener(this);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if(locationManager != null)
@@ -81,20 +82,27 @@ public class HundeskoveInfo extends Activity implements View.OnClickListener, Lo
         }
         userLatitude = intent.getExtras().getString("userLatitude");
         userLongitude = intent.getExtras().getString("userLongitude");
+
+        populateCards();
+
+    }
+
+    public void populateCards(){
         hundeskov = parseDocument("hundeskove.xml");
 
         // init CardView
         mCardView = (CardUI) findViewById(R.id.hundeskovinfocardsview);
         mCardView.setSwipeable(false);
+        mCardView.clearCards();
 
         // add AndroidViews Cards
-
-        TitleCard nameCard = new TitleCard(hundeskov.getNavn(), 0);
+        HundeskovTitleCard statRateCard = new HundeskovTitleCard(hundeskov.getNavn(), Service.getInstance().mapHundeskovNameToId(hundeskov.getNavn()));
         DescCard descCard = new DescCard("Beskrivelse", hundeskov.getBeskrivelse());
         DescCard praktiskCard = new DescCard("Praktisk", hundeskov.getPraktisk());
         ImageCard imageCard = new ImageCard(this, "Billeder", hundeskov.getBillede1(), hundeskov.getBillede2(), hundeskov.getBillede3(), hundeskov.getBillede4());
 
-        mCardView.addCard(nameCard);
+        mCardView.addCard(statRateCard);
+
         if(hundeskov.getBillede1() != ""){
             mCardView.addCard(imageCard);
         }
@@ -108,6 +116,12 @@ public class HundeskoveInfo extends Activity implements View.OnClickListener, Lo
         }
 
         mCardView.refresh();
+    }
+
+    @Override
+    protected void onResume() {
+        populateCards();
+        super.onResume();
     }
 
     @Override
@@ -250,6 +264,10 @@ public class HundeskoveInfo extends Activity implements View.OnClickListener, Lo
         }else if(v.getId() == R.id.cardImage4){
                 intent.putExtra("url",hundeskov.getBillede4());
                 startActivity(intent);
+        }else if(v.getId() == R.id.ABCommentsButton){
+            intent = new Intent(this, HundeskoveComments.class);
+            intent.putExtra("hundeskovid", Service.getInstance().mapHundeskovNameToId(hundeskov.getNavn()));
+            startActivity(intent);
         }else if(v.getId() == R.id.ABNavigateButton){
             Location userlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             try{

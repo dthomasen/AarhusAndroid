@@ -8,7 +8,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +27,7 @@ import java.io.InputStream;
 import dk.dthomasen.aarhus.R;
 import dk.dthomasen.aarhus.cards.DescCard;
 import dk.dthomasen.aarhus.cards.LargeImageCard;
-import dk.dthomasen.aarhus.cards.TitleCard;
+import dk.dthomasen.aarhus.cards.ShelterTitleCard;
 import dk.dthomasen.aarhus.models.Shelter;
 import dk.dthomasen.aarhus.service.Service;
 
@@ -99,23 +98,18 @@ public class SheltersInfo extends Activity implements View.OnClickListener, Loca
     public void populateCards(){
         shelter = parseDocument("shelters.xml");
 
-        int shelterId = Service.getInstance().mapShelterNameToId(shelter.getNavn());
-
         // init CardView
         mCardView = (CardUI) findViewById(R.id.shelterInfoCardsView);
         mCardView.setSwipeable(false);
         mCardView.clearCards();
-        float avgRating = 0;
 
         // add AndroidViews Cards
-        //TitleCard nameCard = new TitleCard(shelter.getNavn());
-        TitleCard statRateCard = new TitleCard(shelter.getNavn(), Service.getInstance().mapShelterNameToId(shelter.getNavn()));
+        ShelterTitleCard statRateCard = new ShelterTitleCard(shelter.getNavn(), Service.getInstance().mapShelterNameToId(shelter.getNavn()));
         DescCard descCard = new DescCard("Beskrivelse", shelter.getBeskrivelse());
         DescCard praktiskCard = new DescCard("Praktisk", shelter.getPraktisk());
         DescCard vejledningCard = new DescCard("Vejledning", shelter.getVejledning());
         LargeImageCard imageCard = new LargeImageCard(this, "Billeder", shelter.getBillede1(), shelter.getBillede2(), shelter.getBillede3(), shelter.getBillede4(), shelter.getBillede5(), shelter.getBillede6());
 
-        //mCardView.addCard(nameCard);
         mCardView.addCard(statRateCard);
 
         if(shelter.getBillede1() != ""){

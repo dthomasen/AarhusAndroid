@@ -13,7 +13,7 @@ import dk.dthomasen.aarhus.models.ShelterRatings;
 /**
  * Created by Dennis on 10-07-13.
  */
-public class RatingsDownload extends AsyncTask<Integer, Void, ShelterRatings>{
+public class ShelterRatingsDownload extends AsyncTask<Integer, Void, ShelterRatings>{
 
     /**
      * ID definitions:
@@ -22,24 +22,19 @@ public class RatingsDownload extends AsyncTask<Integer, Void, ShelterRatings>{
     protected final String TAG = this.getClass().getName();
     RatingBar ratingbar;
 
-    public RatingsDownload(RatingBar ratingBar) {
+    public ShelterRatingsDownload(RatingBar ratingBar) {
         this.ratingbar = ratingBar;
     }
 
     @Override
     protected ShelterRatings doInBackground(Integer... params) {
         try{
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        String url = "";
-        if(params[0] == 1){
-            Log.i(TAG, "checked url");
-            url = "http://dthomasen.dk/aarhus/restful/shelterRatings/"+params[1];
-        }
-        Log.i(TAG, "URL IS!!!!!!: "+url);
-        ShelterRatings result = restTemplate.getForObject(url, ShelterRatings.class);
-        return result;
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            String url = "http://dthomasen.dk/aarhus/restful/shelterRatings/"+params[1];
+            ShelterRatings result = restTemplate.getForObject(url, ShelterRatings.class);
+            return result;
         }catch(Throwable e){
             Log.i(TAG, "Throwable message !!!!!! "+e.getMessage());
             return null;
@@ -47,6 +42,7 @@ public class RatingsDownload extends AsyncTask<Integer, Void, ShelterRatings>{
     }
 
     protected void onPostExecute(ShelterRatings result) {
-        ratingbar.setRating(Service.getInstance().getAverageRating(result));
+        ratingbar.setRating(Service.getInstance().getAverageShelterRating(result));
+        Service.getInstance().saveShelterRatings(result);
     }
 }
